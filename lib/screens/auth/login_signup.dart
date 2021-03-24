@@ -3,7 +3,7 @@ import 'package:vet_flutter/screens/auth/login/login.dart';
 import 'package:vet_flutter/screens/auth/signup/signup.dart';
 
 class LoginSignup extends StatefulWidget {
-  late bool isNewUser;
+  late final bool isNewUser;
 
   @override
   _LoginSignupState createState() => _LoginSignupState();
