@@ -17,16 +17,16 @@ class SearchBottomSheet extends StatelessWidget {
   Container buildLayout(Size size) {
     return Container(
       alignment: Alignment.bottomCenter,
-      height: 220,
+      height: 205,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 5),
             color: Colors.white,
             child: Column(
               children: [
-                buildTitleText(),
+                buildTitle(),
                 buildParagraph(),
                 SearchBox(
                   label: "Search Anything",
@@ -41,7 +41,7 @@ class SearchBottomSheet extends StatelessWidget {
     );
   }
 
-  Container buildTitleText() {
+  Container buildTitle() {
     return Container(
       alignment: AlignmentDirectional.topStart,
       child: Text(
