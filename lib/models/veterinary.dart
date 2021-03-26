@@ -22,6 +22,8 @@ class Veterinary {
 }
 
 class Service {
+  var serviceID;
+
   var costPerUnit;
 
   var description;
@@ -30,54 +32,55 @@ class Service {
 
   var unit;
 
-  Service(this.title, this.description, this.costPerUnit, this.unit);
+  Service(this.serviceID, this.title, this.description, this.costPerUnit,
+      this.unit);
 }
 
 List<Veterinary> getVets() {
   return [
     Veterinary(23, "Dr", "George", "Ndirangu", "Livestock Vet", "+254746649576",
         "ndirangu.mepawa@gmail.com", "4th Floor Bihi Towers", [
-      Service("TB Vaccination",
+      Service(1, "TB Vaccination",
           "Vaccine for cows and goats administered via injection", 300, "cow"),
-      Service("Artificila Insemination",
+      Service(2, "Artificila Insemination",
           "Vaccine for cows and goats administered via injection", 200, "cow"),
-      Service("General Checkup",
+      Service(3, "General Checkup",
           "Vaccine for cows and goats administered via injection", 500, "hour")
     ]),
     Veterinary(24, "Dr", "George", "George", "Livestock Vet", "+254746649576",
         "ndirangu.mepawa@gmail.com", "4th Floor Bihi Towers", [
-      Service("TB Vaccination",
+      Service(4, "TB Vaccination",
           "Vaccine for cows and goats administered via injection", 300, "cow"),
-      Service("Artificila Insemination",
+      Service(5, "Artificila Insemination",
           "Vaccine for cows and goats administered via injection", 200, "cow"),
-      Service("General Checkup",
+      Service(6, "General Checkup",
           "Vaccine for cows and goats administered via injection", 500, "hour")
     ]),
     Veterinary(25, "Dr", "Kitu", "Kidogo", "Livestock Vet", "+254746649576",
         "ndirangu.mepawa@gmail.com", "4th Floor Bihi Towers", [
-      Service("TB Vaccination",
+      Service(7, "TB Vaccination",
           "Vaccine for cows and goats administered via injection", 300, "cow"),
-      Service("Artificila Insemination",
+      Service(8, "Artificila Insemination",
           "Vaccine for cows and goats administered via injection", 200, "cow"),
-      Service("General Checkup",
+      Service(9, "General Checkup",
           "Vaccine for cows and goats administered via injection", 500, "hour")
     ]),
     Veterinary(26, "Dr", "Maureen", "Gakonyo", "Livestock Vet", "+254746649576",
         "ndirangu.mepawa@gmail.com", "4th Floor Bihi Towers", [
-      Service("TB Vaccination",
+      Service(10, "TB Vaccination",
           "Vaccine for cows and goats administered via injection", 300, "cow"),
-      Service("Artificila Insemination",
+      Service(11, "Artificila Insemination",
           "Vaccine for cows and goats administered via injection", 200, "cow"),
-      Service("General Checkup",
+      Service(12, "General Checkup",
           "Vaccine for cows and goats administered via injection", 500, "hour")
     ]),
     Veterinary(27, "Dr", "Peter", "Wasike", "Livestock Vet", "+254746649576",
         "ndirangu.mepawa@gmail.com", "4th Floor Bihi Towers", [
-      Service("TB Vaccination",
+      Service(13, "TB Vaccination",
           "Vaccine for cows and goats administered via injection", 300, "cow"),
-      Service("Artificila Insemination",
+      Service(14, "Artificila Insemination",
           "Vaccine for cows and goats administered via injection", 200, "cow"),
-      Service("General Checkup",
+      Service(15, "General Checkup",
           "Vaccine for cows and goats administered via injection", 500, "hour")
     ])
   ];

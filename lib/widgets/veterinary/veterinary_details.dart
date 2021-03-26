@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_dialog.dart';
 import 'package:vet_flutter/widgets/veterinary/service_card.dart';
 
 class VeterinaryDetails extends StatefulWidget {
@@ -13,6 +14,8 @@ class VeterinaryDetails extends StatefulWidget {
 }
 
 class _VeterinaryDetailsState extends State<VeterinaryDetails> {
+  List<Service> selectedServices = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,12 +28,17 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
             "Services",
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
-          ListView.builder(
-              itemCount: widget.services.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  ServiceCard(widget.services[index])),
+          Expanded(
+            child: ListView.builder(
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                shrinkWrap: true,
+                itemCount: widget.services.length,
+                itemBuilder: (BuildContext context, int index) => ServiceCard(
+                    widget.services[index], addService, removeService)),
+          ),
           ElevatedButton(
-            onPressed: () => {},
+            onPressed: () => {_showMyDialog()},
             child: Text('SCHEDULE APPOINTMENT'),
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith(
@@ -38,6 +46,24 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
           )
         ],
       ),
+    );
+  }
+
+  addService(Service service) {
+    selectedServices.add(service);
+  }
+
+  removeService(Service service) {
+    selectedServices.remove(service);
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return ScheduleAppointmentDialog();
+      },
     );
   }
 }
