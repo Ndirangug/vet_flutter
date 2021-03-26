@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vet_flutter/constants.dart';
 
 class VeterinarySummary extends StatelessWidget {
   final void Function() backCallBack;
@@ -29,39 +30,100 @@ class VeterinarySummary extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                  alignment: Alignment.topLeft,
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
                     backCallBack();
                   }),
-              Container(
-                alignment: Alignment.topCenter,
-                color: Colors.grey,
-                height: 5,
+              Expanded(
+                child: Center(
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors.grey.shade600, width: 1.5)),
+                  ),
+                ),
               )
             ],
           ),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.grey,
-              ),
-              Column(
-                children: [
-                  Text(title + " " + firstName + " " + lastName),
-                  Text(summary),
-                  Row(
+          Container(
+            padding: EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.grey,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(phone),
-                      ElevatedButton(onPressed: () => {}, child: Text("CALL"))
+                      Text(
+                        title + " " + firstName + " " + lastName,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 18),
+                      ),
+                      Text(
+                        summary,
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(right: 7),
+                              child: Icon(Icons.phone, size: 15)),
+                          Text(
+                            phone,
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: ElevatedButton(
+                                onPressed: () => {},
+                                child: Text("CALL"),
+                                style: ButtonStyle(
+                                  visualDensity: VisualDensity.compact,
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                          (states) => kColorAccent),
+                                )),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(right: 7),
+                              child: Icon(Icons.email, size: 15)),
+                          Text(
+                            email,
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 5),
+                        child: Row(
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(right: 7),
+                                child: Icon(Icons.location_on, size: 15)),
+                            Text(
+                              address,
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  Text(email),
-                  Text(address),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           )
         ],
       ),
