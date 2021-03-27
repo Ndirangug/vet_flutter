@@ -62,7 +62,7 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return ScheduleAppointmentDialog();
+        return ScheduleAppointmentDialog(selectedServices);
       },
     );
   }

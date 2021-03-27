@@ -21,7 +21,7 @@ class FormDropDownField extends StatefulWidget {
 }
 
 class _FormDropDownFieldState extends State<FormDropDownField> {
-  String dropdownValue = 'Farmer';
+  late String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -48,5 +48,14 @@ class _FormDropDownFieldState extends State<FormDropDownField> {
       ),
       margin: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      dropdownValue = widget.initialValue;
+    });
   }
 }

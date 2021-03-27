@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUp> {
           FormDropDownField(
             label: "Veterinary or Farmer",
             options: <String>[r'Veterinary', 'Farmer'],
-            initialValue: "Veterinary",
+            initialValue: "Farmer",
           ),
           SubmitButton(
             formKey: _formKey,
