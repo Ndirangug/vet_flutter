@@ -15,13 +15,12 @@ class ScheduleAppointmentForm extends StatefulWidget {
 }
 
 class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
-  final _formKey = GlobalKey<FormState>();
-  double total = 0;
+  double grandTotal = 0;
+  late List<double> totals = [];
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,21 +36,24 @@ class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
                 Text('Services'),
                 Expanded(
                     child: Divider(
-                  thickness: 3,
+                  indent: 10,
+                  endIndent: 5,
+                  thickness: 1,
                   color: Colors.black,
                 ))
               ],
             ),
           ),
           Expanded(
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  shrinkWrap: true,
-                  itemCount: widget.services.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      ServicePreviewCard(widget.services[index]))),
-          Text('Total: Kshs $total')
+            child: ListView.builder(
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                itemCount: widget.services.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    ServicePreviewCard(
+                        widget.services[index], registerTotal, index)),
+          ),
+          Text('Total: Kshs $grandTotal')
         ],
       ),
     );
@@ -82,5 +84,25 @@ class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
       },
       onSaved: (val) => print(val),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.services.forEach((service) {
+      totals.add(service.costPerUnit);
+      calculateGrandTotal();
+    });
+  }
+
+  void registerTotal(double total, int index) {
+    setState(() {
+      this.totals[index] = total;
+      calculateGrandTotal();
+    });
+  }
+
+  void calculateGrandTotal() {
+    this.grandTotal = (this.totals.reduce((a, b) => a + b));
   }
 }

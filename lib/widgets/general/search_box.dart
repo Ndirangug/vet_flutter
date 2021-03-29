@@ -4,8 +4,13 @@ import 'package:vet_flutter/constants.dart';
 class SearchBox extends StatefulWidget {
   final String label;
   final String? Function(String?)? validator;
+  final Color searchIconColor;
 
-  const SearchBox({Key? key, required this.label, required this.validator})
+  const SearchBox(
+      {Key? key,
+      required this.label,
+      required this.validator,
+      required this.searchIconColor})
       : super(key: key);
 
   @override
@@ -24,7 +29,7 @@ class _SearchBoxState extends State<SearchBox> {
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.search,
-                color: kColorAccent,
+                color: widget.searchIconColor,
               ),
               onPressed: () {
                 //TODO:Search

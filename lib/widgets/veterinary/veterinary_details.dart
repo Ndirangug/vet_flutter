@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/models/veterinary.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_dialog.dart';
+import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_button.dart';
 import 'package:vet_flutter/widgets/veterinary/service_card.dart';
 
 class VeterinaryDetails extends StatefulWidget {
@@ -15,6 +15,7 @@ class VeterinaryDetails extends StatefulWidget {
 
 class _VeterinaryDetailsState extends State<VeterinaryDetails> {
   List<Service> selectedServices = [];
+  bool sheduleButtonIsEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,12 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
       color: Colors.white,
       child: Column(
         children: [
-          Text(
-            "Services",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          Container(
+            margin: EdgeInsets.only(top: 5, bottom: 5),
+            child: Text(
+              "Services",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -35,26 +39,29 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
                 shrinkWrap: true,
                 itemCount: widget.services.length,
                 itemBuilder: (BuildContext context, int index) => ServiceCard(
-                    widget.services[index], addService, removeService)),
+                    UniqueKey(),
+                    widget.services[index],
+                    addService,
+                    removeService)),
           ),
-          ElevatedButton(
-            onPressed: () => {_showMyDialog()},
-            child: Text('SCHEDULE APPOINTMENT'),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith(
-                    (states) => kColorAccent)),
-          )
+          ScheduleAppointmentButton(_showMyDialog, selectedServices.length > 0)
         ],
       ),
     );
   }
 
-  addService(Service service) {
-    selectedServices.add(service);
+  void addService(Service service) {
+    setState(() {
+      selectedServices.add(service);
+      print(selectedServices);
+    });
   }
 
-  removeService(Service service) {
-    selectedServices.remove(service);
+  void removeService(Service service) {
+    setState(() {
+      selectedServices.remove(service);
+      print(selectedServices);
+    });
   }
 
   Future<void> _showMyDialog() async {

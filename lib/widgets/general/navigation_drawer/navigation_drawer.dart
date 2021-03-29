@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:vet_flutter/screens/all_veterinarians.dart';
+import 'package:vet_flutter/screens/profile.dart';
 import 'package:vet_flutter/widgets/general/navigation_drawer/header.dart';
 
 Drawer buildDrawer(BuildContext context) {
@@ -18,21 +21,23 @@ Drawer buildDrawer(BuildContext context) {
           leading: Icon(Icons.person),
           title: Text('Profile'),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Profile()));
           },
         ),
         ListTile(
           leading: Icon(Icons.list),
           title: Text('All Veterinarians'),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => AllVeterinarians()));
           },
         ),
         ListTile(
           leading: Icon(Icons.exit_to_app),
           title: Text('Quit'),
           onTap: () {
-            Navigator.pop(context);
+            SystemNavigator.pop();
             //todo quitapp
           },
         ),

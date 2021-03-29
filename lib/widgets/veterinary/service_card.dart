@@ -6,8 +6,14 @@ class ServiceCard extends StatefulWidget {
   final Service service;
   final void Function(Service) addService;
   final void Function(Service) removeService;
+  final Key key;
 
-  ServiceCard(this.service, this.addService, this.removeService);
+  const ServiceCard(
+    this.key,
+    this.service,
+    this.addService,
+    this.removeService,
+  );
 
   @override
   _ServiceCardState createState() => _ServiceCardState();
@@ -36,7 +42,7 @@ class _ServiceCardState extends State<ServiceCard> {
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
                   ),
                   IconButton(
-                      onPressed: checkUnckeck(),
+                      onPressed: checkUnckeck,
                       icon: Icon(
                         Icons.check_circle,
                         color: checkColor,
@@ -64,12 +70,17 @@ class _ServiceCardState extends State<ServiceCard> {
     setState(() {
       isChecked = !isChecked;
       checkColor = isChecked ? kColorPrimary : Colors.grey;
-    });
 
-    if (isChecked) {
-      widget.addService(widget.service);
-    } else {
-      widget.removeService(widget.service);
-    }
+      if (isChecked) {
+        widget.addService(widget.service);
+      } else {
+        widget.removeService(widget.service);
+      }
+
+      print(isChecked);
+      print(checkColor);
+      print('gery ${Colors.grey}');
+      print('primary $kColorPrimary');
+    });
   }
 }

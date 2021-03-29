@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/widgets/discover/bottom_sheet/location_button.dart';
 
 import '../../general/search_box.dart';
@@ -31,6 +32,7 @@ class SearchBottomSheet extends StatelessWidget {
                 SearchBox(
                   label: "Search Anything",
                   validator: (value) => null,
+                  searchIconColor: kColorAccent,
                 )
               ],
             ),

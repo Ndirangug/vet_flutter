@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:spinner_input/spinner_input.dart';
+import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/models/veterinary.dart';
-import 'package:flutter_spinbox/material.dart'; // or flutter_spinbox.dart for both
 
 class ServicePreviewCard extends StatefulWidget {
   final Service service;
+  final void Function(double, int) registerTotal;
+  final int index;
 
-  ServicePreviewCard(this.service);
+  ServicePreviewCard(this.service, this.registerTotal, this.index);
 
   @override
   _ServicePreviewCardState createState() => _ServicePreviewCardState();
@@ -13,49 +17,92 @@ class ServicePreviewCard extends StatefulWidget {
 
 class _ServicePreviewCardState extends State<ServicePreviewCard> {
   late double total;
-  double units = 1;
+  double units = 1.toDouble();
+  Key serciveCardKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      key: serciveCardKey,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [buildTitile(), buildCostRow()],
+        ),
+      ),
+    );
+  }
+
+  Container buildCostRow() {
+    return Container(
+      margin: EdgeInsets.only(top: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.service.title),
-          Row(
+          Container(
+              child: Row(
             children: [
               Container(
-                  child: Row(
-                children: [
-                  Container(
-                    child: SpinBox(
-                      min: 1,
-                      max: 10000,
-                      value: 50,
-                      onChanged: (value) => updateUnits(value),
-                    ),
-                  ),
-                  Text(widget.service.unit)
-                ],
-              )),
-              Text('Kshs $total')
+                child: buildSpinner(),
+              ),
+              Text('${widget.service.unit}s')
             ],
+          )),
+          Text(
+            'Kshs ${total.toInt()}',
+            style: TextStyle(fontWeight: FontWeight.w600),
           )
         ],
       ),
     );
   }
 
+  Container buildSpinner() => Container(
+        margin: EdgeInsets.only(right: 5),
+        child: SpinnerInput(
+          spinnerValue: units,
+          onChange: (newValue) {
+            setState(() {
+              updateUnits(newValue);
+            });
+          },
+          middleNumberStyle: TextStyle(fontSize: 14),
+          plusButton: SpinnerButtonStyle(
+              color: kColorPrimary,
+              height: 16,
+              width: 16,
+              child: Icon(
+                Icons.add,
+                size: 15,
+              )),
+          minusButton: SpinnerButtonStyle(
+              color: kColorPrimary,
+              height: 16,
+              width: 16,
+              child: Icon(
+                Icons.remove,
+                size: 15,
+              )),
+        ),
+      );
+
+  Container buildTitile() => Container(
+      child: Text(widget.service.title,
+          style: TextStyle(fontWeight: FontWeight.w600)));
+
   @override
   void initState() {
     super.initState();
     total = widget.service.costPerUnit;
+    //widget.registerTotal(total, widget.index);
   }
 
   void updateUnits(double newValue) {
     setState(() {
       units = newValue;
       total = newValue.toDouble() * widget.service.costPerUnit;
+      widget.registerTotal(total, widget.index);
     });
   }
 }
