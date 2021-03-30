@@ -1,3 +1,5 @@
+[![Codemagic build status](https://api.codemagic.io/apps/6063709f2812d7ad277dca6c/6063709f2812d7ad277dca6b/status_badge.svg)](https://codemagic.io/apps/6063709f2812d7ad277dca6c/6063709f2812d7ad277dca6b/latest_build)
+
 # vet_flutter
 
 A new Flutter project.

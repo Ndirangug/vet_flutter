@@ -33,6 +33,7 @@ class SearchBottomSheet extends StatelessWidget {
                   label: "Search Anything",
                   validator: (value) => null,
                   searchIconColor: kColorAccent,
+                  onPressed: (value) => {},
                 )
               ],
             ),

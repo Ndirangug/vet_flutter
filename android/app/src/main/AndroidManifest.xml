@@ -1,8 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vet_flutter">
    <application
-        android:label="vet_flutter"
+        android:label="Vet's"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- TODO: Add your API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCWUu0E3iHne3pyu1X6PK0bL7Ze2VwTcxI"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
