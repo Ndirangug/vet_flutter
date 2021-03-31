@@ -88,3 +88,32 @@ Future<Locations> getVetsOffices() async {
         uri: Uri.parse(googleLocationsURL));
   }
 }
+
+List<Office> getOffices() {
+  return [
+    Office(
+        address: "Nairobi",
+        id: "1",
+        image: "",
+        lat: -1.3835204585667158,
+        lng: 36.587144564251275,
+        name: "Doctor 1",
+        phone: "254746649576"),
+    Office(
+        address: "Nairobi West Estate, Nairobi",
+        id: "1",
+        image: "",
+        lat: -1.330664,
+        lng: 36.802751,
+        name: "Doctor 3",
+        phone: "254746649576"),
+    Office(
+        address: "Near Carnivore Restaurant off Langata Road, Kenya",
+        id: "1",
+        image: "",
+        lat: -1.328755,
+        lng: 36.799607,
+        name: "Doctor 2",
+        phone: "254746649576"),
+  ];
+}

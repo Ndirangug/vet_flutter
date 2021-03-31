@@ -2,7 +2,7 @@
     package="com.example.vet_flutter">
    <application
         android:label="Vet's"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo">
 
         <!-- TODO: Add your API key here -->
         <meta-data android:name="com.google.android.geo.API_KEY"

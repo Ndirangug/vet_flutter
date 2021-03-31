@@ -16,11 +16,11 @@ class _MapsViewState extends State<MapsView> {
   final Map<String, Marker> _markers = {};
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    final vetsOffices = await locations.getVetsOffices();
+    final vetsOffices = locations.getOffices();
 
     setState(() {
       _markers.clear();
-      for (final office in vetsOffices.offices) {
+      for (final office in vetsOffices) {
         final marker = Marker(
           markerId: MarkerId(office.name),
           position: LatLng(office.lat, office.lng),
