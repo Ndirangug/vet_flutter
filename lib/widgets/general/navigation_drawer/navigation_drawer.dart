@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/data/fetch_data.dart';
+import 'package:vet_flutter/generated/service.pb.dart';
 import 'package:vet_flutter/models/person.dart';
 import 'package:vet_flutter/screens/all_veterinarians.dart';
 import 'package:vet_flutter/screens/profile.dart';
@@ -22,16 +23,18 @@ Drawer buildDrawer(BuildContext context) {
           leading: Icon(Icons.person),
           title: Text('Profile'),
           onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ViewProfile(person)));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ViewProfile(person)));
           },
         ),
         ListTile(
           leading: Icon(Icons.list),
           title: Text('All Veterinarians'),
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AllVeterinarians(getVets())));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              var vets = ApiClient.allVets(VetRequest());
+              return AllVeterinarians(vets);
+            }));
           },
         ),
         ListTile(

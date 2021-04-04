@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 
 class ServiceCard extends StatefulWidget {
-  final Service service;
-  final void Function(Service) addService;
-  final void Function(Service) removeService;
+  final VetService service;
+  final void Function(VetService) addService;
+  final void Function(VetService) removeService;
   final Key key;
 
   const ServiceCard(

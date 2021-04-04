@@ -1,6 +1,6 @@
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/discover/bottom_sheet/search_bottom_sheet.dart';
 import 'package:vet_flutter/widgets/discover/map/maps_view.dart';
 import 'package:vet_flutter/widgets/veterinary/vet_summary.dart';
@@ -50,7 +50,7 @@ class _BottomSheetViewState extends State<BottomSheetView> {
 
   VeterinarySummary buildSummary() {
     return VeterinarySummary(vet.title, vet.firstName, vet.lastName, vet.email,
-        vet.phone, vet.address, vet.summary, backToSearch);
+        vet.phone, vet.address.address, vet.summary, backToSearch);
   }
 
   VeterinaryDetails buildVetDetails() {

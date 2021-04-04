@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/all_vets/all_vets_header.dart';
 import 'package:vet_flutter/widgets/all_vets/vets_list.dart';
 
 class AllVeterinarians extends StatelessWidget {
-  final List<Veterinary> vets;
+  final Future<List<Veterinary>> vets;
 
   AllVeterinarians(this.vets);
 

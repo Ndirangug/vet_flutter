@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_dialog.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_button.dart';
 import 'package:vet_flutter/widgets/veterinary/service_card.dart';
 
 class VeterinaryDetails extends StatefulWidget {
-  final List<Service> services;
+  final List<VetService> services;
 
   VeterinaryDetails(this.services);
 
@@ -14,7 +14,7 @@ class VeterinaryDetails extends StatefulWidget {
 }
 
 class _VeterinaryDetailsState extends State<VeterinaryDetails> {
-  List<Service> selectedServices = [];
+  List<VetService> selectedServices = [];
   bool sheduleButtonIsEnabled = false;
 
   @override
@@ -50,14 +50,14 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
     );
   }
 
-  void addService(Service service) {
+  void addService(VetService service) {
     setState(() {
       selectedServices.add(service);
       print(selectedServices);
     });
   }
 
-  void removeService(Service service) {
+  void removeService(VetService service) {
     setState(() {
       selectedServices.remove(service);
       print(selectedServices);

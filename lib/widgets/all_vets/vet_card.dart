@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 
 class VeterinaryCard extends StatelessWidget {
   final Veterinary veterinary;
@@ -61,7 +61,7 @@ class VeterinaryCard extends StatelessWidget {
                         margin: EdgeInsets.only(right: 7, top: 5, bottom: 5),
                         child: Icon(Icons.location_on, size: 15)),
                     Text(
-                      veterinary.address,
+                      veterinary.address.address,
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ],

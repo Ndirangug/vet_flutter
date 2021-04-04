@@ -1,6 +1,6 @@
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/discover/map/maps_view.dart';
 import 'package:vet_flutter/widgets/veterinary/vet_summary.dart';
 import 'package:vet_flutter/widgets/veterinary/veterinary_details.dart';
@@ -38,7 +38,7 @@ class _VeterinaryInfoState extends State<VeterinaryInfo> {
         widget.vet.lastName,
         widget.vet.email,
         widget.vet.phone,
-        widget.vet.address,
+        widget.vet.address.address,
         widget.vet.summary,
         widget.backCallBack);
   }

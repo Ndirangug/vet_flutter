@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:spinner_input/spinner_input.dart';
 import 'package:vet_flutter/constants.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 
 class ServicePreviewCard extends StatefulWidget {
-  final Service service;
+  final VetService service;
   final void Function(double, int) registerTotal;
   final int index;
 

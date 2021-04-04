@@ -1,6 +1,6 @@
 ///
 //  Generated code. Do not modify.
-//  source: lib/grpc/service.proto
+//  source: lib/generated/service.proto
 //
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
@@ -8,8 +8,6 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
-import '../../google/protobuf/timestamp.pbjson.dart' as $0;
-
 @$core.Deprecated('Use testHelloRequestDescriptor instead')
 const TestHelloRequest$json = const {
   '1': 'TestHelloRequest',
@@ -172,38 +170,3 @@ const TreatmentSessionRequest$json = const {
 
 /// Descriptor for `TreatmentSessionRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List treatmentSessionRequestDescriptor = $convert.base64Decode('ChdUcmVhdG1lbnRTZXNzaW9uUmVxdWVzdBIuCgR0aW1lGAsgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIEdGltZRIxCghsb2NhdGlvbhgMIAEoCzIVLnZldF9iYWNrZW5kLkxvY2F0aW9uUghsb2NhdGlvbhIaCghmYXJtZXJJZBgNIAEoDVIIZmFybWVySWQSIgoMVmV0ZXJpbmFyeUlkGA4gASgNUgxWZXRlcmluYXJ5SWQSOgoIc2VydmljZXMYDyADKAsyHi52ZXRfYmFja2VuZC5WZXRTZXJ2aWNlUmVxdWVzdFIIc2VydmljZXM=');
-const $core.Map<$core.String, $core.dynamic> VetsBackendServiceBase$json = const {
-  '1': 'VetsBackend',
-  '2': const [
-    const {'1': 'TestHello', '2': '.vet_backend.TestHelloRequest', '3': '.vet_backend.TestHelloResponse'},
-    const {'1': 'GetVeterinarians', '2': '.vet_backend.VetRequest', '3': '.vet_backend.Veterinary', '6': true},
-    const {'1': 'GetVeterinariansInLocation', '2': '.vet_backend.LocationRequest', '3': '.vet_backend.Veterinary', '6': true},
-    const {'1': 'GetVeterinarian', '2': '.vet_backend.VetRequest', '3': '.vet_backend.Veterinary'},
-    const {'1': 'UpdateVeterinarian', '2': '.vet_backend.Veterinary', '3': '.vet_backend.Veterinary'},
-    const {'1': 'UpdateFarmer', '2': '.vet_backend.Farmer', '3': '.vet_backend.Farmer'},
-    const {'1': 'CreateVeterian', '2': '.vet_backend.Veterinary', '3': '.vet_backend.Veterinary'},
-    const {'1': 'CreateFarmer', '2': '.vet_backend.Farmer', '3': '.vet_backend.Farmer'},
-    const {'1': 'GetFarmer', '2': '.vet_backend.FarmerRequest', '3': '.vet_backend.Farmer'},
-    const {'1': 'ScheduleSession', '2': '.vet_backend.TreatmentSessionRequest', '3': '.vet_backend.TreatmentSession'},
-  ],
-};
-
-@$core.Deprecated('Use vetsBackendServiceDescriptor instead')
-const $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> VetsBackendServiceBase$messageJson = const {
-  '.vet_backend.TestHelloRequest': TestHelloRequest$json,
-  '.vet_backend.TestHelloResponse': TestHelloResponse$json,
-  '.vet_backend.VetRequest': VetRequest$json,
-  '.vet_backend.Location': Location$json,
-  '.vet_backend.Veterinary': Veterinary$json,
-  '.vet_backend.VetService': VetService$json,
-  '.vet_backend.LocationRequest': LocationRequest$json,
-  '.vet_backend.Farmer': Farmer$json,
-  '.vet_backend.FarmerRequest': FarmerRequest$json,
-  '.vet_backend.TreatmentSessionRequest': TreatmentSessionRequest$json,
-  '.google.protobuf.Timestamp': $0.Timestamp$json,
-  '.vet_backend.VetServiceRequest': VetServiceRequest$json,
-  '.vet_backend.TreatmentSession': TreatmentSession$json,
-};
-
-/// Descriptor for `VetsBackend`. Decode as a `google.protobuf.ServiceDescriptorProto`.
-final $typed_data.Uint8List vetsBackendServiceDescriptor = $convert.base64Decode('CgtWZXRzQmFja2VuZBJKCglUZXN0SGVsbG8SHS52ZXRfYmFja2VuZC5UZXN0SGVsbG9SZXF1ZXN0Gh4udmV0X2JhY2tlbmQuVGVzdEhlbGxvUmVzcG9uc2USRgoQR2V0VmV0ZXJpbmFyaWFucxIXLnZldF9iYWNrZW5kLlZldFJlcXVlc3QaFy52ZXRfYmFja2VuZC5WZXRlcmluYXJ5MAESVQoaR2V0VmV0ZXJpbmFyaWFuc0luTG9jYXRpb24SHC52ZXRfYmFja2VuZC5Mb2NhdGlvblJlcXVlc3QaFy52ZXRfYmFja2VuZC5WZXRlcmluYXJ5MAESQwoPR2V0VmV0ZXJpbmFyaWFuEhcudmV0X2JhY2tlbmQuVmV0UmVxdWVzdBoXLnZldF9iYWNrZW5kLlZldGVyaW5hcnkSRgoSVXBkYXRlVmV0ZXJpbmFyaWFuEhcudmV0X2JhY2tlbmQuVmV0ZXJpbmFyeRoXLnZldF9iYWNrZW5kLlZldGVyaW5hcnkSOAoMVXBkYXRlRmFybWVyEhMudmV0X2JhY2tlbmQuRmFybWVyGhMudmV0X2JhY2tlbmQuRmFybWVyEkIKDkNyZWF0ZVZldGVyaWFuEhcudmV0X2JhY2tlbmQuVmV0ZXJpbmFyeRoXLnZldF9iYWNrZW5kLlZldGVyaW5hcnkSOAoMQ3JlYXRlRmFybWVyEhMudmV0X2JhY2tlbmQuRmFybWVyGhMudmV0X2JhY2tlbmQuRmFybWVyEjwKCUdldEZhcm1lchIaLnZldF9iYWNrZW5kLkZhcm1lclJlcXVlc3QaEy52ZXRfYmFja2VuZC5GYXJtZXISVgoPU2NoZWR1bGVTZXNzaW9uEiQudmV0X2JhY2tlbmQuVHJlYXRtZW50U2Vzc2lvblJlcXVlc3QaHS52ZXRfYmFja2VuZC5UcmVhdG1lbnRTZXNzaW9u');

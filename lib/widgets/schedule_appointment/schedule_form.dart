@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/auth/form_dropdown.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/service_preview_card.dart';
 
 class ScheduleAppointmentForm extends StatefulWidget {
-  final List<Service> services;
+  final List<VetService> services;
 
   ScheduleAppointmentForm(this.services);
 

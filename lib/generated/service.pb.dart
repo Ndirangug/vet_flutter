@@ -1,16 +1,15 @@
 ///
 //  Generated code. Do not modify.
-//  source: lib/grpc/service.proto
+//  source: lib/generated/service.proto
 //
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-import 'dart:async' as $async;
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../../google/protobuf/timestamp.pb.dart' as $0;
+import '../../google/protobuf/timestamp.pb.dart' as $1;
 
 class TestHelloRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TestHelloRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'vet_backend'), createEmptyInstance: create)
@@ -880,7 +879,7 @@ class FarmerRequest extends $pb.GeneratedMessage {
 class TreatmentSession extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TreatmentSession', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'vet_backend'), createEmptyInstance: create)
     ..a<$core.int>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionId', $pb.PbFieldType.O3, protoName: 'sessionId')
-    ..aOM<$0.Timestamp>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'time', subBuilder: $0.Timestamp.create)
+    ..aOM<$1.Timestamp>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'time', subBuilder: $1.Timestamp.create)
     ..aOM<Location>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Location.create)
     ..a<$core.int>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'farmerId', $pb.PbFieldType.OU3, protoName: 'farmerId')
     ..a<$core.int>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'VeterinaryId', $pb.PbFieldType.OU3, protoName: 'VeterinaryId')
@@ -891,7 +890,7 @@ class TreatmentSession extends $pb.GeneratedMessage {
   TreatmentSession._() : super();
   factory TreatmentSession({
     $core.int? sessionId,
-    $0.Timestamp? time,
+    $1.Timestamp? time,
     Location? location,
     $core.int? farmerId,
     $core.int? veterinaryId,
@@ -949,15 +948,15 @@ class TreatmentSession extends $pb.GeneratedMessage {
   void clearSessionId() => clearField(10);
 
   @$pb.TagNumber(11)
-  $0.Timestamp get time => $_getN(1);
+  $1.Timestamp get time => $_getN(1);
   @$pb.TagNumber(11)
-  set time($0.Timestamp v) { setField(11, v); }
+  set time($1.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasTime() => $_has(1);
   @$pb.TagNumber(11)
   void clearTime() => clearField(11);
   @$pb.TagNumber(11)
-  $0.Timestamp ensureTime() => $_ensure(1);
+  $1.Timestamp ensureTime() => $_ensure(1);
 
   @$pb.TagNumber(12)
   Location get location => $_getN(2);
@@ -994,7 +993,7 @@ class TreatmentSession extends $pb.GeneratedMessage {
 
 class TreatmentSessionRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TreatmentSessionRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'vet_backend'), createEmptyInstance: create)
-    ..aOM<$0.Timestamp>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'time', subBuilder: $0.Timestamp.create)
+    ..aOM<$1.Timestamp>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'time', subBuilder: $1.Timestamp.create)
     ..aOM<Location>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Location.create)
     ..a<$core.int>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'farmerId', $pb.PbFieldType.OU3, protoName: 'farmerId')
     ..a<$core.int>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'VeterinaryId', $pb.PbFieldType.OU3, protoName: 'VeterinaryId')
@@ -1004,7 +1003,7 @@ class TreatmentSessionRequest extends $pb.GeneratedMessage {
 
   TreatmentSessionRequest._() : super();
   factory TreatmentSessionRequest({
-    $0.Timestamp? time,
+    $1.Timestamp? time,
     Location? location,
     $core.int? farmerId,
     $core.int? veterinaryId,
@@ -1050,15 +1049,15 @@ class TreatmentSessionRequest extends $pb.GeneratedMessage {
   static TreatmentSessionRequest? _defaultInstance;
 
   @$pb.TagNumber(11)
-  $0.Timestamp get time => $_getN(0);
+  $1.Timestamp get time => $_getN(0);
   @$pb.TagNumber(11)
-  set time($0.Timestamp v) { setField(11, v); }
+  set time($1.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasTime() => $_has(0);
   @$pb.TagNumber(11)
   void clearTime() => clearField(11);
   @$pb.TagNumber(11)
-  $0.Timestamp ensureTime() => $_ensure(0);
+  $1.Timestamp ensureTime() => $_ensure(0);
 
   @$pb.TagNumber(12)
   Location get location => $_getN(1);
@@ -1091,51 +1090,5 @@ class TreatmentSessionRequest extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(15)
   $core.List<VetServiceRequest> get services => $_getList(4);
-}
-
-class VetsBackendApi {
-  $pb.RpcClient _client;
-  VetsBackendApi(this._client);
-
-  $async.Future<TestHelloResponse> testHello($pb.ClientContext? ctx, TestHelloRequest request) {
-    var emptyResponse = TestHelloResponse();
-    return _client.invoke<TestHelloResponse>(ctx, 'VetsBackend', 'TestHello', request, emptyResponse);
-  }
-  $async.Future<Veterinary> getVeterinarians($pb.ClientContext? ctx, VetRequest request) {
-    var emptyResponse = Veterinary();
-    return _client.invoke<Veterinary>(ctx, 'VetsBackend', 'GetVeterinarians', request, emptyResponse);
-  }
-  $async.Future<Veterinary> getVeterinariansInLocation($pb.ClientContext? ctx, LocationRequest request) {
-    var emptyResponse = Veterinary();
-    return _client.invoke<Veterinary>(ctx, 'VetsBackend', 'GetVeterinariansInLocation', request, emptyResponse);
-  }
-  $async.Future<Veterinary> getVeterinarian($pb.ClientContext? ctx, VetRequest request) {
-    var emptyResponse = Veterinary();
-    return _client.invoke<Veterinary>(ctx, 'VetsBackend', 'GetVeterinarian', request, emptyResponse);
-  }
-  $async.Future<Veterinary> updateVeterinarian($pb.ClientContext? ctx, Veterinary request) {
-    var emptyResponse = Veterinary();
-    return _client.invoke<Veterinary>(ctx, 'VetsBackend', 'UpdateVeterinarian', request, emptyResponse);
-  }
-  $async.Future<Farmer> updateFarmer($pb.ClientContext? ctx, Farmer request) {
-    var emptyResponse = Farmer();
-    return _client.invoke<Farmer>(ctx, 'VetsBackend', 'UpdateFarmer', request, emptyResponse);
-  }
-  $async.Future<Veterinary> createVeterian($pb.ClientContext? ctx, Veterinary request) {
-    var emptyResponse = Veterinary();
-    return _client.invoke<Veterinary>(ctx, 'VetsBackend', 'CreateVeterian', request, emptyResponse);
-  }
-  $async.Future<Farmer> createFarmer($pb.ClientContext? ctx, Farmer request) {
-    var emptyResponse = Farmer();
-    return _client.invoke<Farmer>(ctx, 'VetsBackend', 'CreateFarmer', request, emptyResponse);
-  }
-  $async.Future<Farmer> getFarmer($pb.ClientContext? ctx, FarmerRequest request) {
-    var emptyResponse = Farmer();
-    return _client.invoke<Farmer>(ctx, 'VetsBackend', 'GetFarmer', request, emptyResponse);
-  }
-  $async.Future<TreatmentSession> scheduleSession($pb.ClientContext? ctx, TreatmentSessionRequest request) {
-    var emptyResponse = TreatmentSession();
-    return _client.invoke<TreatmentSession>(ctx, 'VetsBackend', 'ScheduleSession', request, emptyResponse);
-  }
 }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/all_vets/vet_card.dart';
 
 class VeterinaryList extends StatefulWidget {
-  final List<Veterinary> vets;
+  final Future<List<Veterinary>> vets;
 
   final GlobalKey<VeterinaryListState> key;
 
@@ -32,7 +32,8 @@ class VeterinaryListState extends State<VeterinaryList> {
   @override
   void initState() {
     super.initState();
-    filteredVets = widget.vets;
+    //filteredVets = widget.vets;
+    widget.vets.then((value) => filteredVets = value);
   }
 
   filterVets(String query) {

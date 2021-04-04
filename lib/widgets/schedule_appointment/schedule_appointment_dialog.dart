@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
-import 'package:vet_flutter/models/veterinary.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/schedule_form.dart';
 
 class ScheduleAppointmentDialog extends StatefulWidget {
-  final List<Service> services;
+  final List<VetService> services;
 
   ScheduleAppointmentDialog(this.services);
 
