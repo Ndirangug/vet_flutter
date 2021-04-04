@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:vet_flutter/models/person.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/screens/discover/discover.dart';
 import 'package:vet_flutter/widgets/general/app_bar_button.dart';
 
 class ViewProfile extends StatelessWidget {
-  final Person person;
+  final Farmer farmer;
 
-  ViewProfile(this.person); //(this.person);
+  ViewProfile(this.farmer);
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +36,10 @@ class ViewProfile extends StatelessWidget {
             margin: EdgeInsets.only(top: 370),
             child: Column(
               children: [
-                buildProfileItem('${person.firstName} ${person.lastName}'),
-                buildProfileItem(person.phone),
-                buildProfileItem(person.email),
-                buildProfileItem(person.address),
+                buildProfileItem('${farmer.firstName} ${farmer.lastName}'),
+                buildProfileItem(farmer.phone),
+                buildProfileItem(farmer.email),
+                buildProfileItem(farmer.address.address),
               ],
             ),
           )

@@ -14,7 +14,7 @@ class VeterinaryList extends StatefulWidget {
 }
 
 class VeterinaryListState extends State<VeterinaryList> {
-  late List<Veterinary> filteredVets;
+  List<Veterinary> filteredVets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,12 @@ class VeterinaryListState extends State<VeterinaryList> {
   @override
   void initState() {
     super.initState();
-    //filteredVets = widget.vets;
-    widget.vets.then((value) => filteredVets = value);
+
+    widget.vets.then((value) {
+      setState(() {
+        filteredVets = value;
+      });
+    });
   }
 
   filterVets(String query) {

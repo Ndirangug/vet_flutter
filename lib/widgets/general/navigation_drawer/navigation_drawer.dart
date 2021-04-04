@@ -7,9 +7,7 @@ import 'package:vet_flutter/screens/all_veterinarians.dart';
 import 'package:vet_flutter/screens/profile.dart';
 import 'package:vet_flutter/widgets/general/navigation_drawer/header.dart';
 
-Drawer buildDrawer(BuildContext context) {
-  Person person = getPerson();
-
+Drawer buildDrawer(BuildContext context, Farmer farmer) {
   return Drawer(
     // Add a ListView to the drawer. This ensures the user can scroll
     // through the options in the drawer if there isn't enough vertical
@@ -18,13 +16,13 @@ Drawer buildDrawer(BuildContext context) {
       // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
       children: <Widget>[
-        drawerHeader('${person.firstName} ${person.lastName}', person.phone),
+        drawerHeader('${farmer.firstName} ${farmer.lastName}', farmer.phone),
         ListTile(
           leading: Icon(Icons.person),
           title: Text('Profile'),
           onTap: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ViewProfile(person)));
+                MaterialPageRoute(builder: (context) => ViewProfile(farmer)));
           },
         ),
         ListTile(

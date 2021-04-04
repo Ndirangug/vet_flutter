@@ -15,10 +15,11 @@ class ApiClient {
         .toList();
   }
 
-  static Future<List<Veterinary>> allVets(VetRequest request) async {
-    return await GrpcClientSingleton()
-        .client
-        .getVeterinarians(request)
-        .toList();
+  static Future<List<Veterinary>> allVets(VetRequest request) {
+    return GrpcClientSingleton().client.getVeterinarians(request).toList();
+  }
+
+  static Future<Farmer> getProfile(FarmerRequest request) {
+    return GrpcClientSingleton().client.getFarmer(request);
   }
 }
