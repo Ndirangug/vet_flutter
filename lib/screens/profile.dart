@@ -57,7 +57,7 @@ class ViewProfile extends StatelessWidget {
               Icons.arrow_back,
               () => {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Discover()))
+                        MaterialPageRoute(builder: (context) => Discover(null)))
                   },
               [20, 30]),
           Container(

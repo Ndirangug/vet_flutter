@@ -1,44 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
 
-// class ScheduleAppointmentButton extends StatefulWidget {
-//   final Future<void> Function() showDialog;
-//   final bool enabled;
+class ScheduleAppointmentButton extends StatefulWidget {
+  final Future<void> Function(BuildContext context) showDialog;
 
-//   ScheduleAppointmentButton(this.showDialog, this.enabled);
+  ScheduleAppointmentButton(this.showDialog, {required Key key})
+      : super(key: key);
 
-//   @override
-//   _ScheduleAppointmentButtonState createState() =>
-//       _ScheduleAppointmentButtonState();
-// }
+  @override
+  ScheduleAppointmentButtonState createState() =>
+      ScheduleAppointmentButtonState();
+}
 
-// class _ScheduleAppointmentButtonState extends State<ScheduleAppointmentButton> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ElevatedButton(
-//       onPressed: () => {widget.enabled ? widget.showDialog() : null},
-//       child: Text('SCHEDULE APPOINTMENT'),
-//       style: ButtonStyle(
-//           backgroundColor:
-//               MaterialStateProperty.resolveWith((states) => kColorAccent)),
-//     );
-//   }
-// }
-
-class ScheduleAppointmentButton extends StatelessWidget {
-  final Future<void> Function() showDialog;
-  final bool enabled;
-
-  ScheduleAppointmentButton(this.showDialog, this.enabled);
+class ScheduleAppointmentButtonState extends State<ScheduleAppointmentButton> {
+  late bool enabled;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => {enabled ? showDialog() : null},
+      onPressed: () => {enabled ? widget.showDialog(context) : null},
       child: Text('SCHEDULE APPOINTMENT'),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith(
               (states) => enabled ? kColorAccent : Colors.grey)),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    enabled = false;
+  }
+
+  void updateEnabled(bool isEnabled) {
+    setState(() {
+      enabled = isEnabled;
+    });
   }
 }

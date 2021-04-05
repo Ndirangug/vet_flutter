@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pb.dart';
-import 'package:vet_flutter/models/person.dart';
 import 'package:vet_flutter/screens/all_veterinarians.dart';
 import 'package:vet_flutter/screens/profile.dart';
 import 'package:vet_flutter/widgets/general/navigation_drawer/header.dart';

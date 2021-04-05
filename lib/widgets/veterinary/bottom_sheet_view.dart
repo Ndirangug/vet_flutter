@@ -8,10 +8,9 @@ import 'package:vet_flutter/widgets/veterinary/veterinary_details.dart';
 
 class BottomSheetView extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final Veterinary? vet;
 
-  BottomSheetView(
-    this.scaffoldKey,
-  );
+  BottomSheetView(this.scaffoldKey, this.vet);
 
   @override
   _BottomSheetViewState createState() => _BottomSheetViewState();
@@ -37,7 +36,11 @@ class _BottomSheetViewState extends State<BottomSheetView> {
   @override
   void initState() {
     super.initState();
-    backToSearch();
+    if (widget.vet != null) {
+      openVeterinryIno(widget.vet!);
+    } else {
+      showSearch();
+    }
   }
 
   void openVeterinryIno(Veterinary veterinary) {
@@ -50,14 +53,14 @@ class _BottomSheetViewState extends State<BottomSheetView> {
 
   VeterinarySummary buildSummary() {
     return VeterinarySummary(vet.title, vet.firstName, vet.lastName, vet.email,
-        vet.phone, vet.address.address, vet.summary, backToSearch);
+        vet.phone, vet.address.address, vet.summary, showSearch);
   }
 
   VeterinaryDetails buildVetDetails() {
     return VeterinaryDetails(vet.services);
   }
 
-  void backToSearch() {
+  void showSearch() {
     setState(() {
       header = SearchBottomSheet();
       expandableContent = Container();

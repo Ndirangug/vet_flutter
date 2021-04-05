@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
+import 'package:vet_flutter/screens/discover/discover.dart';
 
 class VeterinaryCard extends StatelessWidget {
   final Veterinary veterinary;
@@ -75,7 +76,10 @@ class VeterinaryCard extends StatelessWidget {
                   style: ButtonStyle(
                       foregroundColor: MaterialStateColor.resolveWith(
                           (states) => kColorAccent)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Discover(this.veterinary)));
+                  },
                 ),
               )
             ],

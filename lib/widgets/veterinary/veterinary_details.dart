@@ -4,18 +4,13 @@ import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_di
 import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_button.dart';
 import 'package:vet_flutter/widgets/veterinary/service_card.dart';
 
-class VeterinaryDetails extends StatefulWidget {
+class VeterinaryDetails extends StatelessWidget {
   final List<VetService> services;
+  final List<VetService> selectedServices = [];
+  final GlobalKey<ScheduleAppointmentButtonState> scheduleButtonKey =
+      GlobalKey<ScheduleAppointmentButtonState>();
 
   VeterinaryDetails(this.services);
-
-  @override
-  _VeterinaryDetailsState createState() => _VeterinaryDetailsState();
-}
-
-class _VeterinaryDetailsState extends State<VeterinaryDetails> {
-  List<VetService> selectedServices = [];
-  bool sheduleButtonIsEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,34 +32,36 @@ class _VeterinaryDetailsState extends State<VeterinaryDetails> {
                 physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 shrinkWrap: true,
-                itemCount: widget.services.length,
+                itemCount: services.length,
                 itemBuilder: (BuildContext context, int index) => ServiceCard(
-                    UniqueKey(),
-                    widget.services[index],
-                    addService,
-                    removeService)),
+                    UniqueKey(), services[index], addService, removeService)),
           ),
-          ScheduleAppointmentButton(_showMyDialog, selectedServices.length > 0)
+          ScheduleAppointmentButton(
+            _showMyDialog,
+            key: scheduleButtonKey,
+          )
         ],
       ),
     );
   }
 
   void addService(VetService service) {
-    setState(() {
-      selectedServices.add(service);
-      print(selectedServices);
-    });
+    selectedServices.add(service);
+    updateSheduledButton();
+    print(selectedServices);
   }
 
   void removeService(VetService service) {
-    setState(() {
-      selectedServices.remove(service);
-      print(selectedServices);
-    });
+    selectedServices.remove(service);
+    updateSheduledButton();
+    print(selectedServices);
   }
 
-  Future<void> _showMyDialog() async {
+  void updateSheduledButton() {
+    scheduleButtonKey.currentState!.updateEnabled(selectedServices.length > 0);
+  }
+
+  Future<void> _showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!

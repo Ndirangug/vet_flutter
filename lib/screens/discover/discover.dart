@@ -6,6 +6,10 @@ import 'package:vet_flutter/widgets/general/navigation_drawer/navigation_drawer.
 import 'package:vet_flutter/widgets/veterinary/bottom_sheet_view.dart';
 
 class Discover extends StatefulWidget {
+  final Veterinary? vet;
+
+  Discover(this.vet);
+
   @override
   _DiscoverState createState() => _DiscoverState();
 }
@@ -19,7 +23,7 @@ class _DiscoverState extends State<Discover> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: buildAppBar(_scaffoldKey),
-      bottomSheet: BottomSheetView(_scaffoldKey),
+      bottomSheet: BottomSheetView(_scaffoldKey, widget.vet),
       drawer: buildDrawer(context, farmer),
     );
   }

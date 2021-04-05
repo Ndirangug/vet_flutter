@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 
-class ServiceCard extends StatefulWidget {
+class ServiceCard extends StatelessWidget {
   final VetService service;
   final void Function(VetService) addService;
   final void Function(VetService) removeService;
   final Key key;
 
-  const ServiceCard(
+  ServiceCard(
     this.key,
     this.service,
     this.addService,
@@ -16,18 +16,9 @@ class ServiceCard extends StatefulWidget {
   );
 
   @override
-  _ServiceCardState createState() => _ServiceCardState();
-}
-
-class _ServiceCardState extends State<ServiceCard> {
-  Color checkColor = Colors.grey;
-  bool isChecked = false;
-  Key serviceCardKey = UniqueKey();
-
-  @override
   Widget build(BuildContext context) {
     return Card(
-      key: serviceCardKey,
+      //key: serviceCardKey,
       elevation: 5,
       margin: EdgeInsets.symmetric(vertical: 8),
       child: Padding(
@@ -38,25 +29,23 @@ class _ServiceCardState extends State<ServiceCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.service.title,
+                    service.title,
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
                   ),
-                  IconButton(
-                      onPressed: checkUnckeck,
-                      icon: Icon(
-                        Icons.check_circle,
-                        color: checkColor,
-                        size: 20,
-                      ))
+                  CheckMark(
+                    addService: addService,
+                    removeService: removeService,
+                    service: service,
+                  )
                 ],
               ),
               Container(
-                child: Text(widget.service.description),
+                child: Text(service.description),
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: Text(
-                  'Kshs  ${widget.service.costPerUnit} per  ${widget.service.unit}',
+                  'Kshs  ${service.costPerUnit} per  ${service.unit}',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
               )
@@ -65,10 +54,43 @@ class _ServiceCardState extends State<ServiceCard> {
           padding: EdgeInsets.only(left: 15, right: 15, bottom: 15)),
     );
   }
+}
 
-  checkUnckeck() {
+class CheckMark extends StatefulWidget {
+  final void Function(VetService) addService;
+  final void Function(VetService) removeService;
+  final VetService service;
+
+  const CheckMark(
+      {Key? key,
+      required this.addService,
+      required this.removeService,
+      required this.service})
+      : super(key: key);
+
+  @override
+  _CheckMarkState createState() => _CheckMarkState();
+}
+
+class _CheckMarkState extends State<CheckMark> {
+  late bool isChecked;
+  late Color checkColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: checkUnckeck,
+        icon: Icon(
+          Icons.check_circle,
+          color: checkColor,
+          size: 20,
+        ));
+  }
+
+  void checkUnckeck() {
     setState(() {
-      isChecked = !isChecked;
+      this.isChecked = !isChecked;
+
       checkColor = isChecked ? kColorPrimary : Colors.grey;
 
       if (isChecked) {
@@ -76,11 +98,13 @@ class _ServiceCardState extends State<ServiceCard> {
       } else {
         widget.removeService(widget.service);
       }
-
-      print(isChecked);
-      print(checkColor);
-      print('gery ${Colors.grey}');
-      print('primary $kColorPrimary');
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkColor = Colors.grey;
+    isChecked = false;
   }
 }

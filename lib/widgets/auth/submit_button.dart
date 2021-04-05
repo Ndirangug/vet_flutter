@@ -29,8 +29,8 @@ class SubmitButton extends StatelessWidget {
                 .showSnackBar(SnackBar(content: Text('Processing Data')));
 
             // Go to new route
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Discover()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Discover(null)));
           }
         },
         child: Text(text),
