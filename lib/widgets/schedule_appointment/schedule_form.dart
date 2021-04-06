@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
+import 'package:vet_flutter/google/protobuf/timestamp.pb.dart';
 import 'package:vet_flutter/widgets/auth/form_dropdown.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/service_preview_card.dart';
 
 class ScheduleAppointmentForm extends StatefulWidget {
-  final List<VetService> services;
+  final Veterinary vet;
+  final List<VetService> selectedServices;
 
-  ScheduleAppointmentForm(this.services);
+  ScheduleAppointmentForm(
+      {required Key key, required this.vet, required this.selectedServices})
+      : super(key: key);
 
   @override
-  _ScheduleAppointmentFormState createState() =>
-      _ScheduleAppointmentFormState();
+  ScheduleAppointmentFormState createState() => ScheduleAppointmentFormState();
 }
 
-class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
+class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
   double grandTotal = 0;
   late List<double> totals = [];
+  late List<VetServiceRequest> serviceRequests = [];
+
+  late Farmer farmer;
+  late Location location;
+  late Timestamp timestamp;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +36,17 @@ class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
         children: [
           buildDateTimePicker(),
           FormDropDownField(
-              label: 'Place',
-              initialValue: 'Home',
-              options: ['Home', "Veterinary's Office"]),
+            label: 'Place',
+            initialValue: 'Home',
+            options: ['Home', "Veterinary's Office"],
+            onChanged: (value) {
+              if (value == 'Home') {
+                location = farmer.address;
+              } else {
+                location = widget.vet.address;
+              }
+            },
+          ),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -48,10 +66,10 @@ class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
             child: ListView.builder(
                 physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                itemCount: widget.services.length,
+                itemCount: widget.selectedServices.length,
                 itemBuilder: (BuildContext context, int index) =>
                     ServicePreviewCard(
-                        widget.services[index], registerTotal, index)),
+                        widget.selectedServices[index], registerTotal, index)),
           ),
           Text('Total: Kshs $grandTotal')
         ],
@@ -77,7 +95,10 @@ class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
 
         return true;
       },
-      onChanged: (val) => print(val),
+      onChanged: (val) {
+        DateTime dateTime = DateTime.tryParse(val)!;
+        timestamp = Timestamp.fromDateTime(dateTime);
+      },
       validator: (val) {
         print(val);
         return null;
@@ -89,20 +110,42 @@ class _ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
   @override
   void initState() {
     super.initState();
-    widget.services.forEach((service) {
+    widget.selectedServices.forEach((service) {
       totals.add(service.costPerUnit);
       calculateGrandTotal();
+      serviceRequests
+          .add(VetServiceRequest(serviceId: service.serviceId, units: 1));
+    });
+
+    SharedPreferences.getInstance().then((prefs) {
+      farmer = Farmer(
+          farmerId: prefs.getInt("farmerId"),
+          address: Location(
+              lat: prefs.getDouble("farmerLat"),
+              long: prefs.getDouble("farmerLong")));
     });
   }
 
-  void registerTotal(double total, int index) {
+  void registerTotal(double total, int units, int index) {
     setState(() {
       this.totals[index] = total;
       calculateGrandTotal();
+      serviceRequests[index].units = units;
     });
   }
 
   void calculateGrandTotal() {
     this.grandTotal = (this.totals.reduce((a, b) => a + b));
+  }
+
+  void submitRequest() {
+    TreatmentSessionRequest sessionRequest = TreatmentSessionRequest(
+        farmerId: farmer.farmerId,
+        location: location,
+        time: timestamp,
+        veterinaryId: widget.vet.vetId,
+        services: serviceRequests);
+    print(sessionRequest);
+    ApiClient.scheduleSession(sessionRequest);
   }
 }

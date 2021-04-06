@@ -57,7 +57,7 @@ class _BottomSheetViewState extends State<BottomSheetView> {
   }
 
   VeterinaryDetails buildVetDetails() {
-    return VeterinaryDetails(vet.services);
+    return VeterinaryDetails(vet);
   }
 
   void showSearch() {

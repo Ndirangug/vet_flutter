@@ -5,12 +5,12 @@ import 'package:vet_flutter/widgets/schedule_appointment/schedule_appointment_bu
 import 'package:vet_flutter/widgets/veterinary/service_card.dart';
 
 class VeterinaryDetails extends StatelessWidget {
-  final List<VetService> services;
+  final Veterinary vet;
   final List<VetService> selectedServices = [];
   final GlobalKey<ScheduleAppointmentButtonState> scheduleButtonKey =
       GlobalKey<ScheduleAppointmentButtonState>();
 
-  VeterinaryDetails(this.services);
+  VeterinaryDetails(this.vet);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,17 @@ class VeterinaryDetails extends StatelessWidget {
                 physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 shrinkWrap: true,
-                itemCount: services.length,
+                itemCount: vet.services.length,
                 itemBuilder: (BuildContext context, int index) => ServiceCard(
-                    UniqueKey(), services[index], addService, removeService)),
+                    UniqueKey(),
+                    vet.services[index],
+                    addService,
+                    removeService)),
           ),
           ScheduleAppointmentButton(
             _showMyDialog,
             key: scheduleButtonKey,
+            vet: vet,
           )
         ],
       ),
@@ -61,12 +65,15 @@ class VeterinaryDetails extends StatelessWidget {
     scheduleButtonKey.currentState!.updateEnabled(selectedServices.length > 0);
   }
 
-  Future<void> _showMyDialog(BuildContext context) async {
+  Future<void> _showMyDialog(BuildContext context, Veterinary vet) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return ScheduleAppointmentDialog(selectedServices);
+        return ScheduleAppointmentDialog(
+          vet: vet,
+          selectedServices: selectedServices,
+        );
       },
     );
   }

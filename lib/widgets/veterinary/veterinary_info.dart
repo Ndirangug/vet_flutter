@@ -44,6 +44,6 @@ class _VeterinaryInfoState extends State<VeterinaryInfo> {
   }
 
   VeterinaryDetails buildExpandableContent() {
-    return VeterinaryDetails(widget.vet.services);
+    return VeterinaryDetails(widget.vet);
   }
 }

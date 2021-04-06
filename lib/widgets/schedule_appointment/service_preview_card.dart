@@ -6,7 +6,7 @@ import 'package:vet_flutter/generated/service.pbgrpc.dart';
 
 class ServicePreviewCard extends StatefulWidget {
   final VetService service;
-  final void Function(double, int) registerTotal;
+  final void Function(double, int, int) registerTotal;
   final int index;
 
   ServicePreviewCard(this.service, this.registerTotal, this.index);
@@ -102,7 +102,7 @@ class _ServicePreviewCardState extends State<ServicePreviewCard> {
     setState(() {
       units = newValue;
       total = newValue.toDouble() * widget.service.costPerUnit;
-      widget.registerTotal(total, widget.index);
+      widget.registerTotal(total, units.toInt(), widget.index);
     });
   }
 }

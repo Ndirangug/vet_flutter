@@ -9,11 +9,14 @@ class FormDropDownField extends StatefulWidget {
 
   final List<String> options;
 
+  final void Function(String)? onChanged;
+
   const FormDropDownField(
       {Key? key,
       required this.label,
       required this.initialValue,
-      required this.options})
+      required this.options,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -31,8 +34,9 @@ class _FormDropDownFieldState extends State<FormDropDownField> {
         icon: const Icon(Icons.arrow_drop_down),
         iconSize: 18,
         onChanged: (String? newValue) {
+          widget.onChanged!(newValue!);
           setState(() {
-            dropdownValue = newValue!;
+            dropdownValue = newValue;
           });
         },
         decoration: InputDecoration(

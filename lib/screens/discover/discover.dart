@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/discover/discover_app_bar.dart';
@@ -30,13 +31,17 @@ class _DiscoverState extends State<Discover> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     ApiClient.getProfile(FarmerRequest(email: "ndirangu.mepawa@gmail.com"))
         .then((value) {
       setState(() {
         farmer = value;
+        SharedPreferences.getInstance().then((prefs) {
+          prefs.setInt("farmerId", farmer.farmerId);
+          prefs.setDouble("farmerLat", farmer.address.lat);
+          prefs.setDouble("farmerLong", farmer.address.long);
+        });
       });
     });
   }

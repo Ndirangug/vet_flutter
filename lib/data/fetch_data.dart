@@ -22,4 +22,9 @@ class ApiClient {
   static Future<Farmer> getProfile(FarmerRequest request) {
     return GrpcClientSingleton().client.getFarmer(request);
   }
+
+  static Future<TreatmentSession> scheduleSession(
+      TreatmentSessionRequest request) {
+    return GrpcClientSingleton().client.scheduleSession(request);
+  }
 }

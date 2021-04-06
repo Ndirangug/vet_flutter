@@ -4,9 +4,12 @@ import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/schedule_form.dart';
 
 class ScheduleAppointmentDialog extends StatefulWidget {
-  final List<VetService> services;
+  final Veterinary vet;
 
-  ScheduleAppointmentDialog(this.services);
+  final List<VetService> selectedServices;
+
+  ScheduleAppointmentDialog(
+      {required this.vet, required this.selectedServices});
 
   @override
   _ScheduleAppointmentDialogState createState() =>
@@ -14,13 +17,20 @@ class ScheduleAppointmentDialog extends StatefulWidget {
 }
 
 class _ScheduleAppointmentDialogState extends State<ScheduleAppointmentDialog> {
+  GlobalKey<ScheduleAppointmentFormState> scheduleAppointmentFormKey =
+      GlobalKey<ScheduleAppointmentFormState>();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       elevation: 3,
       actions: buildActions(context),
       title: buildTitle(),
-      content: ScheduleAppointmentForm(widget.services),
+      content: ScheduleAppointmentForm(
+        key: scheduleAppointmentFormKey,
+        vet: widget.vet,
+        selectedServices: widget.selectedServices,
+      ),
     );
   }
 
@@ -43,7 +53,8 @@ class _ScheduleAppointmentDialogState extends State<ScheduleAppointmentDialog> {
               overlayColor: MaterialStateProperty.resolveWith(
                   (states) => Colors.red.shade50))),
       TextButton(
-          onPressed: () => {},
+          onPressed: () =>
+              {scheduleAppointmentFormKey.currentState!.submitRequest()},
           child: Text('PROCEED TO PAY', style: TextStyle(color: kColorPrimary)),
           style: ButtonStyle(
               overlayColor: MaterialStateProperty.resolveWith(
