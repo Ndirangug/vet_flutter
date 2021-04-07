@@ -54,7 +54,7 @@ class _ScheduleAppointmentDialogState extends State<ScheduleAppointmentDialog> {
                   (states) => Colors.red.shade50))),
       TextButton(
           onPressed: () =>
-              {scheduleAppointmentFormKey.currentState!.submitRequest()},
+              {scheduleAppointmentFormKey.currentState!.submitRequest(context)},
           child: Text('PROCEED TO PAY', style: TextStyle(color: kColorPrimary)),
           style: ButtonStyle(
               overlayColor: MaterialStateProperty.resolveWith(

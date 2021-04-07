@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/google/protobuf/timestamp.pb.dart';
+import 'package:vet_flutter/screens/pay/make_payment.dart';
 import 'package:vet_flutter/widgets/auth/form_dropdown.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/service_preview_card.dart';
 
@@ -138,14 +139,17 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
     this.grandTotal = (this.totals.reduce((a, b) => a + b));
   }
 
-  void submitRequest() {
+  void submitRequest(BuildContext context) {
     TreatmentSessionRequest sessionRequest = TreatmentSessionRequest(
         farmerId: farmer.farmerId,
         location: location,
         time: timestamp,
         veterinaryId: widget.vet.vetId,
         services: serviceRequests);
-    print(sessionRequest);
+
+    //TODO ADD FIELD PAID/UNPAID TO SESSION TABLE IN DB
     ApiClient.scheduleSession(sessionRequest);
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => MakePaymentWebView()));
   }
 }

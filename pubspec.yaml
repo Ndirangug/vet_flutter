@@ -40,6 +40,9 @@ dependencies:
   grpc: ^3.0.0
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.3
+  webview_flutter: ^2.0.3
+  random_string: ^2.1.0
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_test:
