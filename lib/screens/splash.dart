@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/screens/auth/login_signup.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -8,8 +7,7 @@ class SplashScreen extends StatelessWidget {
       child: GestureDetector(
         child: Image(image: AssetImage("assets/images/splash.png")),
         onDoubleTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginSignup()));
+          Navigator.pushNamed(context, '/auth');
         },
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -119,11 +121,7 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
     });
 
     SharedPreferences.getInstance().then((prefs) {
-      farmer = Farmer(
-          farmerId: prefs.getInt("farmerId"),
-          address: Location(
-              lat: prefs.getDouble("farmerLat"),
-              long: prefs.getDouble("farmerLong")));
+      farmer = jsonDecode(prefs.getString("farmer")!);
     });
   }
 

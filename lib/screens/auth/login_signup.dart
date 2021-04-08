@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vet_flutter/screens/auth/fetch_user.dart';
 import 'package:vet_flutter/screens/auth/login/login.dart';
 import 'package:vet_flutter/screens/auth/signup/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:vet_flutter/screens/discover/discover.dart';
 
 class LoginSignup extends StatefulWidget {
   late final bool isNewUser;
@@ -14,6 +18,8 @@ class LoginSignup extends StatefulWidget {
 }
 
 class _LoginSignupState extends State<LoginSignup> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -59,7 +65,14 @@ class _LoginSignupState extends State<LoginSignup> {
                     flex: 6,
                     child: FractionallySizedBox(
                       child: TabBarView(
-                        children: [LogIn(), SignUp()],
+                        children: [
+                          LogIn(
+                            firebaseAuth: auth,
+                          ),
+                          SignUp(
+                            firebaseAuth: auth,
+                          )
+                        ],
                       ),
                       widthFactor: 0.7,
                     )),
@@ -67,5 +80,35 @@ class _LoginSignupState extends State<LoginSignup> {
             ),
           ),
         ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (FirebaseAuth.instance.currentUser == null) {
+    } else {
+      fetchUserProfile(FirebaseAuth.instance.currentUser!.email!);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => Discover(null)));
+    }
+  }
+
+  void subscribeToAuthChange() {
+    FirebaseAuth.instance.idTokenChanges().listen((User? user) {
+      if (user == null && ModalRoute.of(context)!.settings.name != '/auth') {
+        Navigator.of(context).pushNamed('/auth');
+      } else {
+        SharedPreferences.getInstance().then((prefs) {
+          if (!prefs.containsKey('farmer')) {
+            print('fetching profile');
+            fetchUserProfile(user!.email!);
+          }
+        });
+        var _ = ModalRoute.of(context)!.settings.name != '/discover'
+            ? Navigator.of(context).pushNamed('/discover')
+            : null;
+      }
+    });
   }
 }

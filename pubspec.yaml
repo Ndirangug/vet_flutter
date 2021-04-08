@@ -43,6 +43,9 @@ dependencies:
   webview_flutter: ^2.0.3
   random_string: ^2.1.0
   crypto: ^3.0.1
+  firebase_core: "^1.0.3"
+  firebase_analytics: ^7.1.1
+  firebase_auth: ^1.0.2
 
 dev_dependencies:
   flutter_test:

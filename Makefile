@@ -3,3 +3,6 @@ generate:
 
 run:
 	flutter run --no-sound-null-safety
+
+apk:
+	flutter build apk --no-sound-null-safety

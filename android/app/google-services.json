@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1087016637708",
+    "project_id": "veterinaryapp",
+    "storage_bucket": "veterinaryapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087016637708:android:794578ba540bd0b2ace529",
+        "android_client_info": {
+          "package_name": "com.vet_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087016637708-8aaqopapeghr12e7bv90tutlhrhkqm3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vet_flutter",
+            "certificate_hash": "afb0e02ac71eb11675bce1dc0b788c0ef1bef8a8"
+          }
+        },
+        {
+          "client_id": "1087016637708-bbiimbp0rp1rt7mjgesa5hbq612p31nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuWTGKa-1CtpmNkXG5OhM5bxZJzCzx6pM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087016637708-bbiimbp0rp1rt7mjgesa5hbq612p31nj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
