@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/discover/discover_app_bar.dart';
 import 'package:vet_flutter/widgets/general/navigation_drawer/navigation_drawer.dart';
@@ -18,7 +21,7 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends State<Discover> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  Farmer farmer = Farmer();
+  Farmer _farmer = Farmer();
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +29,18 @@ class _DiscoverState extends State<Discover> {
       key: _scaffoldKey,
       appBar: buildAppBar(_scaffoldKey),
       bottomSheet: BottomSheetView(_scaffoldKey, widget.vet),
-      drawer: buildDrawer(context, farmer),
+      drawer: buildDrawer(context, _farmer),
     );
   }
 
   @override
   void initState() {
     super.initState();
-
-    setState(() {
-      SharedPreferences.getInstance().then((prefs) {
-        farmer = jsonDecode(prefs.getString("farmer")!);
+    ApiClient.getProfile(
+            FarmerRequest(email: FirebaseAuth.instance.currentUser!.email))
+        .then((farmer) {
+      setState(() {
+        this._farmer = farmer;
       });
     });
   }

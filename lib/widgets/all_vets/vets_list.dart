@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/all_vets/vet_card.dart';
+import 'package:vet_flutter/widgets/general/progress_dialog.dart';
 
 class VeterinaryList extends StatefulWidget {
   final Future<List<Veterinary>> vets;
@@ -32,8 +33,9 @@ class VeterinaryListState extends State<VeterinaryList> {
   @override
   void initState() {
     super.initState();
-
+    //showProgressDialog(context);
     widget.vets.then((value) {
+      //Navigator.of(context).pop();
       setState(() {
         filteredVets = value;
       });

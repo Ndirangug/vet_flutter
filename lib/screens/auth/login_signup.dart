@@ -5,6 +5,7 @@ import 'package:vet_flutter/screens/auth/login/login.dart';
 import 'package:vet_flutter/screens/auth/signup/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vet_flutter/screens/discover/discover.dart';
+import 'package:vet_flutter/widgets/general/progress_dialog.dart';
 
 class LoginSignup extends StatefulWidget {
   late final bool isNewUser;
@@ -67,11 +68,11 @@ class _LoginSignupState extends State<LoginSignup> {
                       child: TabBarView(
                         children: [
                           LogIn(
-                            firebaseAuth: auth,
-                          ),
+                              firebaseAuth: auth,
+                              showProgressDialog: showProgressDialog),
                           SignUp(
-                            firebaseAuth: auth,
-                          )
+                              firebaseAuth: auth,
+                              showProgressDialog: showProgressDialog)
                         ],
                       ),
                       widthFactor: 0.7,
@@ -111,4 +112,5 @@ class _LoginSignupState extends State<LoginSignup> {
       }
     });
   }
+
 }

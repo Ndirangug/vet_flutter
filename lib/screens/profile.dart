@@ -30,6 +30,8 @@ class ViewProfile extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Colors.grey.shade200,
               radius: 75,
+              backgroundImage: NetworkImage(
+                  'https://ui-avatars.com/api/?name=${farmer.firstName}+${farmer.lastName}'),
             ),
           ),
           Container(

@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pb.dart';
 import 'package:vet_flutter/screens/all_veterinarians.dart';
@@ -35,10 +35,12 @@ Drawer buildDrawer(BuildContext context, Farmer farmer) {
           },
         ),
         ListTile(
-          leading: Icon(Icons.exit_to_app),
-          title: Text('Quit'),
+          leading: Icon(Icons.logout),
+          title: Text('Log Out'),
           onTap: () {
-            SystemNavigator.pop();
+            FirebaseAuth.instance.signOut();
+            Navigator.of(context)
+                .popUntil((route) => route.settings.name == "/auth");
           },
         ),
       ],

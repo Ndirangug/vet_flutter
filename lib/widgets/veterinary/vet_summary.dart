@@ -56,6 +56,8 @@ class VeterinarySummary extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.grey,
+                  backgroundImage: NetworkImage(
+                      'https://ui-avatars.com/api/?name=$firstName+$lastName'),
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 20),

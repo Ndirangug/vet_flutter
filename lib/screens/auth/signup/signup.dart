@@ -9,8 +9,9 @@ import '../../../widgets/auth/text_field.dart';
 
 class SignUp extends StatefulWidget {
   final FirebaseAuth firebaseAuth;
+  final void Function(BuildContext) showProgressDialog;
 
-  SignUp({required this.firebaseAuth});
+  SignUp({required this.firebaseAuth, required this.showProgressDialog});
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -60,12 +61,18 @@ class _SignUpState extends State<SignUp> {
   }
 
   void registerUser() async {
+    widget.showProgressDialog(context);
     try {
+      print("creating user");
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass1);
 
+      Navigator.of(context).pop();
+
       initUser(userCredential, context);
     } on FirebaseAuthException catch (e) {
+      Navigator.of(context).pop();
+
       if (e.code == 'weak-password') {
         _formKey.currentState!.reset();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -76,6 +83,7 @@ class _SignUpState extends State<SignUp> {
             content: Text('The account already exists for that email')));
       }
     } catch (e) {
+      Navigator.of(context).pop();
       _formKey.currentState!.reset();
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));

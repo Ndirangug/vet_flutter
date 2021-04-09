@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/screens/auth/login_signup.dart';
 import 'package:vet_flutter/screens/discover/discover.dart';
+import 'package:vet_flutter/screens/splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,11 +52,13 @@ class MyApp extends StatelessWidget {
           primaryColor: kColorPrimary,
           accentColor: kColorAccent,
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      initialRoute: '/auth',
+      home: SplashScreen(),
       routes: {
+        //'/': (context) => SplashScreen(),
         '/auth': (context) => LoginSignup(),
-        'discover': (context) => Discover(null)
+        '/discover': (context) => Discover(null)
       },
+      //initialRoute: '/',
     );
   }
 

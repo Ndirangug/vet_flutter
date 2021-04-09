@@ -30,7 +30,7 @@ class SearchBottomSheet extends StatelessWidget {
                 buildTitle(),
                 buildParagraph(),
                 SearchBox(
-                  label: "Search Anything",
+                  label: "Search a Location",
                   validator: (value) => null,
                   searchIconColor: kColorAccent,
                   onPressed: (value) => {},
@@ -59,7 +59,7 @@ class SearchBottomSheet extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Text(
-        "Search a Veterinary Officer's name, a service e.g 'cow vaccination' or 'foot and mouth' or a location",
+        "Search a  location e.g Nairobi to get veterinary officers around the location",
         style: TextStyle(
           color: Colors.black,
           fontSize: 15,
