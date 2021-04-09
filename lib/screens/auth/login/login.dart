@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/screens/auth/fetch_user.dart';
 import 'package:vet_flutter/widgets/auth/password_field.dart';

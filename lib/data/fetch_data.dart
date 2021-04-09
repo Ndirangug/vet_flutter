@@ -27,4 +27,8 @@ class ApiClient {
       TreatmentSessionRequest request) {
     return GrpcClientSingleton().client.scheduleSession(request);
   }
+
+  static Future<Farmer> createFarmer(Farmer request) {
+    return GrpcClientSingleton().client.createFarmer(request);
+  }
 }

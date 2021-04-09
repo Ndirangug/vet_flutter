@@ -3,11 +3,19 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/screens/discover/discover.dart';
 import 'package:vet_flutter/widgets/general/app_bar_button.dart';
+import 'package:vet_flutter/widgets/location/location_services.dart';
 
-class ViewProfile extends StatelessWidget {
+class ViewProfile extends StatefulWidget {
   final Farmer farmer;
 
   ViewProfile(this.farmer);
+
+  @override
+  _ViewProfileState createState() => _ViewProfileState();
+}
+
+class _ViewProfileState extends State<ViewProfile> {
+  String address = '';
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +39,34 @@ class ViewProfile extends StatelessWidget {
               backgroundColor: Colors.grey.shade200,
               radius: 75,
               backgroundImage: NetworkImage(
-                  'https://ui-avatars.com/api/?name=${farmer.firstName}+${farmer.lastName}'),
+                  'https://ui-avatars.com/api/?name=${widget.farmer.firstName}+${widget.farmer.lastName}'),
             ),
           ),
           Container(
             margin: EdgeInsets.only(top: 370),
             child: Column(
               children: [
-                buildProfileItem('${farmer.firstName} ${farmer.lastName}'),
-                buildProfileItem(farmer.phone),
-                buildProfileItem(farmer.email),
-                buildProfileItem(farmer.address.address),
+                buildProfileItem(
+                    '${widget.farmer.firstName} ${widget.farmer.lastName}'),
+                buildProfileItem(widget.farmer.phone),
+                buildProfileItem(widget.farmer.email),
+                buildProfileItem(address),
               ],
             ),
           )
         ],
       ),
     ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAddressFromCoordinates(widget.farmer.address).then((placemark) {
+      setState(() {
+        address = "${placemark.name!} ${placemark.street}";
+      });
+    });
   }
 
   Container buildTitleRow(BuildContext context) {

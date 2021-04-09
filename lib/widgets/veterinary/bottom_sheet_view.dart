@@ -22,13 +22,15 @@ class _BottomSheetViewState extends State<BottomSheetView> {
   late Widget expandableContent;
   late Veterinary vet;
 
+  GlobalKey<MapsViewState> mapsKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ExpandableBottomSheet(
         persistentHeader: header,
         expandableContent: expandableContent,
-        background: MapsView(openVeterinryIno),
+        background: MapsView(openVeterinryIno, key: mapsKey),
       ),
     );
   }

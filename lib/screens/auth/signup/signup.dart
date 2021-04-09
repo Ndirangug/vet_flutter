@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vet_flutter/data/fetch_data.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/screens/auth/fetch_user.dart';
 import 'package:vet_flutter/widgets/auth/password_field.dart';
 import 'package:vet_flutter/widgets/auth/submit_button.dart';
+import 'package:vet_flutter/widgets/location/location_services.dart';
 
 import '../../../widgets/auth/text_field.dart';
 
@@ -22,6 +24,11 @@ class _SignUpState extends State<SignUp> {
   String pass1 = "";
   String pass2 = "";
   String email = "";
+  String phone = "";
+  String fName = "";
+  String lName = "";
+
+  late Location location;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +38,33 @@ class _SignUpState extends State<SignUp> {
       child: Column(
         children: <Widget>[
           MyTextField(
-            label: "Email or Phone",
+            label: "First Name",
+            validator: (value) {
+              fName = value!;
+              return null;
+            },
+          ),
+          MyTextField(
+            label: "Last Name",
+            validator: (value) {
+              lName = value!;
+              return null;
+            },
+          ),
+          MyTextField(
+            label: "Email",
             validator: (value) {
               email = value!;
+              return null;
+            },
+          ),
+          MyTextField(
+            label: "Phone",
+            validator: (value) {
+              if (value!.length != 10) {
+                return "Phone number is invalid!";
+              }
+              phone = value;
               return null;
             },
           ),
@@ -67,9 +98,23 @@ class _SignUpState extends State<SignUp> {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass1);
 
-      Navigator.of(context).pop();
+      getCurrentLocation().then((locationData) {
+        location =
+            Location(lat: locationData!.latitude, long: locationData.longitude);
 
-      initUser(userCredential, context);
+        Farmer farmer = Farmer(
+            firstName: fName,
+            lastName: lName,
+            email: email,
+            phone: phone,
+            address: location);
+
+        ApiClient.createFarmer(farmer).then((farmer) {
+          Navigator.of(context).pop();
+
+          initUser(userCredential, context);
+        });
+      });
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
 

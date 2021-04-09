@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-DrawerHeader drawerHeader(String name, String phone) {
-  
+DrawerHeader drawerHeader(String firstName, String lastName, String phone) {
   return DrawerHeader(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -12,11 +11,13 @@ DrawerHeader drawerHeader(String name, String phone) {
           child: CircleAvatar(
             radius: 35,
             backgroundColor: Colors.grey.shade300,
+            backgroundImage: NetworkImage(
+                'https://ui-avatars.com/api/?name=$firstName+$lastName'),
           ),
         ),
         Container(
           child: Text(
-            name,
+            '$firstName $lastName',
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
           ),

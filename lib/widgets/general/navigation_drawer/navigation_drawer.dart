@@ -15,7 +15,7 @@ Drawer buildDrawer(BuildContext context, Farmer farmer) {
       // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
       children: <Widget>[
-        drawerHeader('${farmer.firstName} ${farmer.lastName}', farmer.phone),
+        drawerHeader(farmer.firstName, farmer.lastName, farmer.phone),
         ListTile(
           leading: Icon(Icons.person),
           title: Text('Profile'),

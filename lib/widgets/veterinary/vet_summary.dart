@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vet_flutter/constants.dart';
 
 class VeterinarySummary extends StatelessWidget {
@@ -85,7 +86,9 @@ class VeterinarySummary extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(left: 20),
                             child: ElevatedButton(
-                                onPressed: () => {},
+                                onPressed: () {
+                                  _launchURL();
+                                },
                                 child: Text("CALL"),
                                 style: ButtonStyle(
                                   visualDensity: VisualDensity.compact,
@@ -130,5 +133,16 @@ class VeterinarySummary extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _launchURL() async {
+    Uri phoneUri = Uri(
+      scheme: 'tel',
+      path: phone,
+    );
+
+    await canLaunch(phoneUri.toString())
+        ? await launch(phoneUri.toString())
+        : throw 'Could not launch $phoneUri';
   }
 }

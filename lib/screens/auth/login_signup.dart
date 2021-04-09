@@ -89,6 +89,7 @@ class _LoginSignupState extends State<LoginSignup> {
 
     if (FirebaseAuth.instance.currentUser == null) {
     } else {
+      print('fetching profile 1');
       fetchUserProfile(FirebaseAuth.instance.currentUser!.email!);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => Discover(null)));
@@ -97,20 +98,21 @@ class _LoginSignupState extends State<LoginSignup> {
 
   void subscribeToAuthChange() {
     FirebaseAuth.instance.idTokenChanges().listen((User? user) {
+      print('check if route is /auth');
       if (user == null && ModalRoute.of(context)!.settings.name != '/auth') {
         Navigator.of(context).pushNamed('/auth');
       } else {
         SharedPreferences.getInstance().then((prefs) {
           if (!prefs.containsKey('farmer')) {
-            print('fetching profile');
+            print('fetching profile 2');
             fetchUserProfile(user!.email!);
           }
         });
+        print('check if route is /discover');
         var _ = ModalRoute.of(context)!.settings.name != '/discover'
             ? Navigator.of(context).pushNamed('/discover')
             : null;
       }
     });
   }
-
 }
