@@ -11,7 +11,12 @@ class SplashScreen extends StatelessWidget {
 
     return Center(
       child: GestureDetector(
-        child: Image(image: AssetImage("assets/images/splash.png")),
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/splash.png"),
+                  fit: BoxFit.cover)),
+        ),
         onDoubleTap: () {
           Navigator.pushNamed(context, '/auth');
         },
