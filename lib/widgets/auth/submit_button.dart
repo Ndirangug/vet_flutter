@@ -23,6 +23,8 @@ class SubmitButton extends StatelessWidget {
                 EdgeInsets.symmetric(horizontal: 50, vertical: 12))),
         onPressed: () {
           if (formKey.currentState!.validate()) {
+            // this is a hacky solution remove line to see effect
+            formKey.currentState!.validate();
             onClick();
           }
         },

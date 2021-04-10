@@ -41,10 +41,11 @@ class MapsViewState extends State<MapsView> {
   void newLocation(Location newLocation) {
     setState(() {
       this.location = newLocation;
+      _updateMap();
     });
   }
 
-  void updateMap() async {
+  void _updateMap() async {
     double radius = 300;
 
     final veterinaries = await ApiClient.fetchVeterinariesInLocation(

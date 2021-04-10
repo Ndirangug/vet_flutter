@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
+import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/discover/bottom_sheet/location_button.dart';
+import 'package:vet_flutter/widgets/discover/map/maps_view.dart';
+import 'package:vet_flutter/widgets/location/location_services.dart';
 
 import '../../general/search_box.dart';
 
 class SearchBottomSheet extends StatelessWidget {
+  final GlobalKey<MapsViewState> mapsKey;
+
+  SearchBottomSheet({required this.mapsKey});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -33,12 +40,16 @@ class SearchBottomSheet extends StatelessWidget {
                   label: "Search a Location",
                   validator: (value) => null,
                   searchIconColor: kColorAccent,
-                  onPressed: (value) => {},
+                  onPressed: (value) async {
+                    Location location = await getCoordinatesFromAddress(value);
+                    print("gottwn loc from address $location ");
+                    mapsKey.currentState!.newLocation(location);
+                  },
                 )
               ],
             ),
           ),
-          buildLocationButton(),
+          buildLocationButton(mapsKey),
         ],
       ),
     );

@@ -64,7 +64,7 @@ class _BottomSheetViewState extends State<BottomSheetView> {
 
   void showSearch() {
     setState(() {
-      header = SearchBottomSheet();
+      header = SearchBottomSheet(mapsKey: mapsKey);
       expandableContent = Container();
     });
   }

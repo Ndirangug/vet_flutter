@@ -10,6 +10,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 class MakePaymentWebView extends StatelessWidget {
   late final WebViewController controller;
 
+  //final String sessionDetails;
+
+  // MakePaymentWebView({required this.sessionDetails});
+
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
@@ -38,6 +42,7 @@ class MakePaymentWebView extends StatelessWidget {
     requestParams["eml"] = "";
     requestParams["vid"] = "demo";
     requestParams["crl"] = 2;
+    //requestParams["p1"] = sessionDetails;
 
     String datastring =
         "${requestParams["live"]}${requestParams["oid"]}${requestParams["inv"]}${requestParams["ttl"]}${requestParams["tel"]}${requestParams["eml"]}${requestParams["vid"]}${requestParams["crl"]}";
@@ -59,6 +64,8 @@ class MakePaymentWebView extends StatelessWidget {
     print("\n");
     print(htmlPage);
     return htmlPage;
+
+    // TODO SHOULD GET A HTTP RESPONSE STREAM
   }
 
   _loadHtmlFromAssets(WebViewController _controller) async {

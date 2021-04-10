@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
@@ -18,7 +17,7 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends State<Discover> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  Farmer _farmer = Farmer();
+  // Farmer _farmer = Farmer();
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +25,19 @@ class _DiscoverState extends State<Discover> {
       key: _scaffoldKey,
       appBar: buildAppBar(_scaffoldKey),
       bottomSheet: BottomSheetView(_scaffoldKey, widget.vet),
-      drawer: buildDrawer(context, _farmer),
+      drawer: NavDrawer(),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    ApiClient.getProfile(
-            FarmerRequest(email: FirebaseAuth.instance.currentUser!.email))
-        .then((farmer) {
-      setState(() {
-        this._farmer = farmer;
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   ApiClient.getProfile(
+  //           FarmerRequest(email: FirebaseAuth.instance.currentUser!.email))
+  //       .then((farmer) {
+  //     setState(() {
+  //       this._farmer = farmer;
+  //     });
+  //   });
+  // }
 }

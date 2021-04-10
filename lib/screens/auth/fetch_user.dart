@@ -9,18 +9,38 @@ import 'package:vet_flutter/generated/service.pbgrpc.dart';
 void initUser(UserCredential userCredential, BuildContext context) {
   SharedPreferences.getInstance().then((prefs) {
     fetchUserProfile(userCredential.user!.email!);
-  });
 
-  Navigator.of(context).pushNamed('/discover');
+    print('pushing discover');
+    Navigator.of(context).pushNamed('/discover');
+    print('pushed');
+  });
 }
 
 void fetchUserProfile(String email) {
   ApiClient.getProfile(FarmerRequest(email: email)).then((farmer) {
-    String farmerStr = jsonEncode(farmer);
-    print(farmerStr);
-
     SharedPreferences.getInstance().then((prefs) {
-      prefs.setString("farmer", farmerStr);
+      prefs.setInt("farmerId", farmer.farmerId);
+      prefs.setString("farmerFName", farmer.firstName);
+      prefs.setString("farmerLName", farmer.lastName);
+      prefs.setString("farmerEmail", farmer.email);
+      prefs.setString("farmerPhone", farmer.phone);
+      prefs.setDouble("farmerLat", farmer.address.lat);
+      prefs.setDouble("farmerLong", farmer.address.long);
     });
   });
+}
+
+Future<Farmer> getCachedUser() async {
+  Farmer farmer = Farmer();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  farmer.farmerId = prefs.getInt("farmerId")!;
+  farmer.firstName = prefs.getString("farmerFName")!;
+  farmer.lastName = prefs.getString("farmerLName")!;
+  farmer.email = prefs.getString("farmerEmail")!;
+  farmer.phone = prefs.getString("farmerPhone")!;
+  farmer.address = Location(
+      lat: prefs.getDouble("farmerLat"), long: prefs.getDouble("farmerLong"));
+
+  return farmer;
 }

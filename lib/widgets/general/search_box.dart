@@ -28,7 +28,7 @@ class _SearchBoxState extends State<SearchBox> {
       child: TextFormField(
         onChanged: (text) {
           value = text;
-          widget.onPressed(value);
+          //widget.onPressed(value);
         },
         decoration: InputDecoration(
             border: OutlineInputBorder(

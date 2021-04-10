@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:grpc/grpc.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/screens/auth/fetch_user.dart';
@@ -97,10 +98,12 @@ class _SignUpState extends State<SignUp> {
       print("creating user");
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass1);
+      print("created user");
 
       getCurrentLocation().then((locationData) {
         location =
             Location(lat: locationData!.latitude, long: locationData.longitude);
+        print("located user $location");
 
         Farmer farmer = Farmer(
             firstName: fName,
@@ -113,6 +116,14 @@ class _SignUpState extends State<SignUp> {
           Navigator.of(context).pop();
 
           initUser(userCredential, context);
+        }).onError<GrpcError>((error, _) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(error.message.toString())));
+        }).onError<Error>((error, stackTrace) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(error.toString())));
         });
       });
     } on FirebaseAuthException catch (e) {

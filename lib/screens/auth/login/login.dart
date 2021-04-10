@@ -30,7 +30,7 @@ class _LogInState extends State<LogIn> {
         child: Column(
           children: <Widget>[
             MyTextField(
-              label: "Email or Phone",
+              label: "Email",
               validator: (value) {
                 email = value!;
                 return null;

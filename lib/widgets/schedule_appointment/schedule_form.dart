@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/google/protobuf/timestamp.pb.dart';
+import 'package:vet_flutter/screens/auth/fetch_user.dart';
 import 'package:vet_flutter/screens/pay/make_payment.dart';
 import 'package:vet_flutter/widgets/auth/form_dropdown.dart';
 import 'package:vet_flutter/widgets/schedule_appointment/service_preview_card.dart';
@@ -84,7 +86,9 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
     return DateTimePicker(
       type: DateTimePickerType.dateTime,
       dateMask: 'd MMM, yyyy',
-      initialValue: DateTime.now().toString(),
+      initialValue: isWeekend(DateTime.now())
+          ? DateTime.now().add(Duration(days: 2)).toString()
+          : DateTime.now().toString(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       icon: Icon(Icons.event),
@@ -92,7 +96,7 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
       timeLabelText: "Time",
       selectableDayPredicate: (date) {
         // Disable weekend days to select from the calendar
-        if (date.weekday == 6 || date.weekday == 7) {
+        if (isWeekend(date)) {
           return false;
         }
 
@@ -120,8 +124,12 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
           .add(VetServiceRequest(serviceId: service.serviceId, units: 1));
     });
 
-    SharedPreferences.getInstance().then((prefs) {
-      farmer = jsonDecode(prefs.getString("farmer")!);
+    getCachedUser().then((fetchedUser) {
+      new Timer(Duration(seconds: 2), () {
+        setState(() {
+          farmer = fetchedUser;
+        });
+      });
     });
   }
 
@@ -145,9 +153,12 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
         veterinaryId: widget.vet.vetId,
         services: serviceRequests);
 
-    //TODO ADD FIELD PAID/UNPAID TO SESSION TABLE IN DB
     ApiClient.scheduleSession(sessionRequest);
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => MakePaymentWebView()));
+  }
+
+  bool isWeekend(DateTime date) {
+    return date.weekday == 6 || date.weekday == 7;
   }
 }
