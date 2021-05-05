@@ -1,18 +1,37 @@
 [![Codemagic build status](https://api.codemagic.io/apps/6063709f2812d7ad277dca6c/6063709f2812d7ad277dca6b/status_badge.svg)](https://codemagic.io/apps/6063709f2812d7ad277dca6c/6063709f2812d7ad277dca6b/latest_build)
 
-# vet_flutter
+# Vets
 
-A new Flutter project.
+Vets is a concept flutter app that allows farmers to search for veterinary officers in their area, checkout their services and schedule appointments .This flutter app fetches data from a grpc backend ([https://github.com/ndirangug/vet-backend](https://github.com/ndirangug/vet-backend)). 
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Screenshots
+- Home
+   ![Home](screenshots/Home.png "Logo Title Text 1")
+- All vets
+    ![Home](screenshots/AllVets.png "Logo Title Text 1")
+- Login
+    ![Home](screenshots/LoginSignup.png "Logo Title Text 1")
+- NavDrawer
+  ![Home](screenshots/NavDrawer.png "Logo Title Text 1")
+- Schedule Dialog
+    ![Home](screenshots/ScheduleDialog.png "Logo Title Text 1")
+- Splash
+    ![Home](screenshots/Splash.png "Logo Title Text 1")
+- Vet Details Full
+    ![Home](screenshots/VetDetailsFull.png "Logo Title Text 1")
+- Vet Summary
+  ![Home](screenshots/VetDetailsSummary.png "Logo Title Text 1")
 
-A few resources to get you started if this is your first Flutter project:
+## Install APK
+A CI pipeline has been setup with [CodeMagic](https://codemagic.io/). A built apk is available at this url ()[]
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Test Locally
+### Prerequistes
+- Flutter SDK
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+$ make run
+```
+
+
