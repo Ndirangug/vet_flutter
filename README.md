@@ -1,5 +1,7 @@
 [![Codemagic build status](https://api.codemagic.io/apps/6063709f2812d7ad277dca6c/6063709f2812d7ad277dca6b/status_badge.svg)](https://codemagic.io/apps/6063709f2812d7ad277dca6c/6063709f2812d7ad277dca6b/latest_build)
 
+> :warning: **Work in progress**
+
 # Vets
 
 Vets is a concept flutter app that allows farmers to search for veterinary officers in their area, checkout their services and schedule appointments .This flutter app fetches data from a grpc backend ([https://github.com/ndirangug/vet-backend](https://github.com/ndirangug/vet-backend)). 
