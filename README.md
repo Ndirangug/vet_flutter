@@ -24,7 +24,7 @@ Vets is a concept flutter app that allows farmers to search for veterinary offic
   ![Home](screenshots/VetDetailsSummary.png "Logo Title Text 1")
 
 ## Install APK
-A CI pipeline has been setup with [CodeMagic](https://codemagic.io/). A built apk is available at this url ()[]
+A CI pipeline has been setup with [CodeMagic](https://codemagic.io/). A built apk is available at this url [https://api.codemagic.io/artifacts/19c460a7-b162-43bc-80e8-37194a958914/faaf6d91-0baa-467d-bae9-299994928257/app-release.apk](https://api.codemagic.io/artifacts/19c460a7-b162-43bc-80e8-37194a958914/faaf6d91-0baa-467d-bae9-299994928257/app-release.apk)
 
 ## Test Locally
 ### Prerequistes

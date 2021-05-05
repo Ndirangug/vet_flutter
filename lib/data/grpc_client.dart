@@ -17,8 +17,8 @@ class GrpcClientSingleton {
     print(envVars);
 
     this.clientChannel = ClientChannel(
-        "192.168.43.86", // Your IP here, localhost might not work.
-        port: 50051,
+        "vet-backend-fybfguvuua-uc.a.run.app", // Your IP here, localhost might not work.
+        port: 443,
         // envVars['GRPC_HOST']!,
         // port: int.parse(envVars['GRPC_PORT']!),
         options: const ChannelOptions(
