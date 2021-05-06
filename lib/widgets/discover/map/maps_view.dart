@@ -49,8 +49,9 @@ class MapsViewState extends State<MapsView> {
   }
 
   void repositionCamera(Location location) {
+    _mapController.animateCamera(CameraUpdate.zoomTo(6));
     _mapController.animateCamera(
-        CameraUpdate.newLatLngZoom(LatLng(location.lat, location.long), 9));
+        CameraUpdate.newLatLngZoom(LatLng(location.lat, location.long), 8));
   }
 
   void _updateVets(Location location) async {
@@ -92,6 +93,7 @@ class MapsViewState extends State<MapsView> {
         });
       }
 
+      _mapController.animateCamera(CameraUpdate.zoomTo(6));
       _mapController.animateCamera(
           CameraUpdate.newLatLngZoom(LatLng(location.lat, location.long), 10));
     });
