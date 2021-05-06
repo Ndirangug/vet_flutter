@@ -9,6 +9,7 @@ class ApiClient {
 
   static Future<List<Veterinary>> fetchVeterinariesInLocation(
       LocationRequest request) async {
+    print("fetching vets in location");
     return GrpcClientSingleton()
         .client
         .getVeterinariansInLocation(request)
@@ -16,6 +17,7 @@ class ApiClient {
   }
 
   static Future<List<Veterinary>> allVets(VetRequest request) {
+    print("fetching all vets");
     return GrpcClientSingleton().client.getVeterinarians(request).toList();
   }
 

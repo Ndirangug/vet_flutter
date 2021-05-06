@@ -13,9 +13,8 @@ class GrpcClientSingleton {
   factory GrpcClientSingleton() => _singleton;
 
   GrpcClientSingleton._internal() {
-    Map<String, String> envVars = Platform.environment;
-    print(envVars);
-
+    //Map<String, String> envVars = Platform.environment;
+   
     this.clientChannel = ClientChannel(
         "vet-backend-fybfguvuua-uc.a.run.app", // Your IP here, localhost might not work.
         port: 443,
@@ -23,8 +22,8 @@ class GrpcClientSingleton {
         // port: int.parse(envVars['GRPC_PORT']!),
         options: const ChannelOptions(
           //TODO: Change to secure with server certificates
-          credentials: ChannelCredentials.insecure(),
-          idleTimeout: Duration(minutes: 1),
+          credentials: ChannelCredentials.secure(),
+          idleTimeout: Duration(minutes: 2),
         ));
 
     this.client = VetsBackendClient(this.clientChannel);

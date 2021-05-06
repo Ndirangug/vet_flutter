@@ -3,7 +3,7 @@ import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/all_vets/vet_card.dart';
 
 class VeterinaryList extends StatefulWidget {
-  final Future<List<Veterinary>> vets;
+  final List<Veterinary> vets;
 
   final GlobalKey<VeterinaryListState> key;
 
@@ -32,13 +32,11 @@ class VeterinaryListState extends State<VeterinaryList> {
   @override
   void initState() {
     super.initState();
-    //showProgressDialog(context);
-    widget.vets.then((value) {
-      //Navigator.of(context).pop();
+   
       setState(() {
-        filteredVets = value;
+        filteredVets = widget.vets;
       });
-    });
+   
   }
 
   filterVets(String query) {

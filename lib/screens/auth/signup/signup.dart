@@ -95,15 +95,15 @@ class _SignUpState extends State<SignUp> {
   void registerUser() async {
     widget.showProgressDialog(context);
     try {
-      print("creating user");
+      //print("creating user");
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass1);
-      print("created user");
+      //print("created user");
 
       getCurrentLocation().then((locationData) {
         location =
             Location(lat: locationData!.latitude, long: locationData.longitude);
-        print("located user $location");
+        //print("located user $location");
 
         Farmer farmer = Farmer(
             firstName: fName,

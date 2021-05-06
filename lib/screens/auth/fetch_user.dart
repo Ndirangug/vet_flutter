@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,10 +7,7 @@ import 'package:vet_flutter/generated/service.pbgrpc.dart';
 void initUser(UserCredential userCredential, BuildContext context) {
   SharedPreferences.getInstance().then((prefs) {
     fetchUserProfile(userCredential.user!.email!);
-
-    print('pushing discover');
     Navigator.of(context).pushNamed('/discover');
-    print('pushed');
   });
 }
 

@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
+import 'package:vet_flutter/screens/auth/fetch_user.dart';
 import 'package:vet_flutter/screens/discover/discover.dart';
 import 'package:vet_flutter/widgets/general/app_bar_button.dart';
 import 'package:vet_flutter/widgets/location/location_services.dart';
 
 class ViewProfile extends StatefulWidget {
-  final Farmer farmer;
-
-  ViewProfile(this.farmer);
-
   @override
   _ViewProfileState createState() => _ViewProfileState();
 }
 
 class _ViewProfileState extends State<ViewProfile> {
+  Farmer farmer = Farmer();
   String address = '';
 
   @override
@@ -39,7 +37,7 @@ class _ViewProfileState extends State<ViewProfile> {
               backgroundColor: Colors.grey.shade200,
               radius: 75,
               backgroundImage: NetworkImage(
-                  'https://ui-avatars.com/api/?name=${widget.farmer.firstName}+${widget.farmer.lastName}'),
+                  'https://ui-avatars.com/api/?name=${farmer.firstName}+${farmer.lastName}'),
             ),
           ),
           Container(
@@ -47,9 +45,9 @@ class _ViewProfileState extends State<ViewProfile> {
             child: Column(
               children: [
                 buildProfileItem(
-                    '${widget.farmer.firstName} ${widget.farmer.lastName}'),
-                buildProfileItem(widget.farmer.phone),
-                buildProfileItem(widget.farmer.email),
+                    '${farmer.firstName} ${farmer.lastName}'),
+                buildProfileItem(farmer.phone),
+                buildProfileItem(farmer.email),
                 buildProfileItem(address),
               ],
             ),
@@ -62,10 +60,15 @@ class _ViewProfileState extends State<ViewProfile> {
   @override
   void initState() {
     super.initState();
-    getAddressFromCoordinates(widget.farmer.address).then((placemark) {
-      setState(() {
-        address = "${placemark.name!} ${placemark.street}";
+
+    getCachedUser().then((cachedFarmer) {
+      getAddressFromCoordinates(cachedFarmer.address).then((placemark) {
+        setState(() {
+          farmer = cachedFarmer;
+          address = "${placemark.name!} ${placemark.street}";
+        });
       });
+
     });
   }
 

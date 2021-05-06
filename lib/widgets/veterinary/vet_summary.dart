@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vet_flutter/constants.dart';
+import 'package:vet_flutter/generated/service.pb.dart';
+import 'package:vet_flutter/widgets/discover/map/maps_view.dart';
+import 'package:vet_flutter/widgets/location/location_services.dart';
 
-class VeterinarySummary extends StatelessWidget {
+class VeterinarySummary extends StatefulWidget {
   final void Function() backCallBack;
+  final Veterinary vet;
+  final GlobalKey<MapsViewState> mapsKey;
 
-  final String address;
+  VeterinarySummary(
+      {required this.vet, required this.backCallBack, required this.mapsKey});
 
-  final String email;
+  @override
+  _VeterinarySummaryState createState() => _VeterinarySummaryState();
+}
 
-  final String summary;
-
-  final String title;
-
-  final String lastName;
-
-  final String firstName;
-
-  final String phone;
-
-  VeterinarySummary(this.title, this.firstName, this.lastName, this.email,
-      this.phone, this.address, this.summary, this.backCallBack);
+class _VeterinarySummaryState extends State<VeterinarySummary> {
+  String address = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class VeterinarySummary extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    backCallBack();
+                    widget.backCallBack();
                   }),
               Expanded(
                 child: Center(
@@ -58,7 +56,7 @@ class VeterinarySummary extends StatelessWidget {
                   radius: 30,
                   backgroundColor: Colors.grey,
                   backgroundImage: NetworkImage(
-                      'https://ui-avatars.com/api/?name=$firstName+$lastName'),
+                      'https://ui-avatars.com/api/?name=${widget.vet.firstName}+${widget.vet.lastName}'),
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 20),
@@ -66,12 +64,16 @@ class VeterinarySummary extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title + " " + firstName + " " + lastName,
+                        widget.vet.title +
+                            " " +
+                            widget.vet.firstName +
+                            " " +
+                            widget.vet.lastName,
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 18),
                       ),
                       Text(
-                        summary,
+                        widget.vet.summary,
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                       Row(
@@ -80,7 +82,7 @@ class VeterinarySummary extends StatelessWidget {
                               margin: EdgeInsets.only(right: 7),
                               child: Icon(Icons.phone, size: 15)),
                           Text(
-                            phone,
+                            widget.vet.phone,
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                           Container(
@@ -105,7 +107,7 @@ class VeterinarySummary extends StatelessWidget {
                               margin: EdgeInsets.only(right: 7),
                               child: Icon(Icons.email, size: 15)),
                           Text(
-                            email,
+                            widget.vet.email,
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         ],
@@ -138,11 +140,24 @@ class VeterinarySummary extends StatelessWidget {
   void _launchURL() async {
     Uri phoneUri = Uri(
       scheme: 'tel',
-      path: phone,
+      path: widget.vet.phone,
     );
 
     await canLaunch(phoneUri.toString())
         ? await launch(phoneUri.toString())
         : throw 'Could not launch $phoneUri';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getAddressFromCoordinates(widget.vet.address).then((placemark) {
+      setState(() {
+        this.address = " ${placemark.name} ${placemark.street}";
+      });
+
+      widget.mapsKey.currentState!.repositionCamera(widget.vet.address);
+    });
   }
 }

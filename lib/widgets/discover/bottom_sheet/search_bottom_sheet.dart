@@ -42,7 +42,7 @@ class SearchBottomSheet extends StatelessWidget {
                   searchIconColor: kColorAccent,
                   onPressed: (value) async {
                     Location location = await getCoordinatesFromAddress(value);
-                    print("gottwn loc from address $location ");
+                    //print("gottwn loc from address $location ");
                     mapsKey.currentState!.newLocation(location);
                   },
                 )

@@ -10,8 +10,9 @@ class VeterinaryInfo extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final void Function() backCallBack;
   final MapsView map;
+  final GlobalKey<MapsViewState> mapsKey;
 
-  VeterinaryInfo(this.vet, this.scaffoldKey, this.backCallBack, this.map);
+  VeterinaryInfo(this.vet, this.scaffoldKey, this.backCallBack, this.map, this.mapsKey);
 
   @override
   _VeterinaryInfoState createState() => _VeterinaryInfoState();
@@ -24,23 +25,15 @@ class _VeterinaryInfoState extends State<VeterinaryInfo> {
   Widget build(BuildContext context) {
     return Container(
       child: ExpandableBottomSheet(
-        persistentHeader: buildHeader(context),
+        persistentHeader: VeterinarySummary(
+          vet: widget.vet,
+          mapsKey: widget.mapsKey,
+          backCallBack: widget.backCallBack,
+        ),
         expandableContent: buildExpandableContent(),
         background: widget.map,
       ),
     );
-  }
-
-  VeterinarySummary buildHeader(BuildContext context) {
-    return VeterinarySummary(
-        widget.vet.title,
-        widget.vet.firstName,
-        widget.vet.lastName,
-        widget.vet.email,
-        widget.vet.phone,
-        widget.vet.address.address,
-        widget.vet.summary,
-        widget.backCallBack);
   }
 
   VeterinaryDetails buildExpandableContent() {

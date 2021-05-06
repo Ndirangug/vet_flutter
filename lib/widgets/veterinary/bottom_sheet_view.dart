@@ -30,7 +30,7 @@ class _BottomSheetViewState extends State<BottomSheetView> {
       child: ExpandableBottomSheet(
         persistentHeader: header,
         expandableContent: expandableContent,
-        background: MapsView(openVeterinryIno, key: mapsKey),
+        background: MapsView(openVeterinryInfo, key: mapsKey),
       ),
     );
   }
@@ -39,27 +39,22 @@ class _BottomSheetViewState extends State<BottomSheetView> {
   void initState() {
     super.initState();
     if (widget.vet != null) {
-      openVeterinryIno(widget.vet!);
+      openVeterinryInfo(widget.vet!);
     } else {
       showSearch();
     }
   }
 
-  void openVeterinryIno(Veterinary veterinary) {
+  void openVeterinryInfo(Veterinary veterinary) {
     setState(() {
       vet = veterinary;
-      header = buildSummary();
-      expandableContent = buildVetDetails();
+      header = VeterinarySummary(
+        vet: vet,
+        backCallBack: showSearch,
+        mapsKey: mapsKey,
+      );
+      expandableContent = VeterinaryDetails(vet);
     });
-  }
-
-  VeterinarySummary buildSummary() {
-    return VeterinarySummary(vet.title, vet.firstName, vet.lastName, vet.email,
-        vet.phone, vet.address.address, vet.summary, showSearch);
-  }
-
-  VeterinaryDetails buildVetDetails() {
-    return VeterinaryDetails(vet);
   }
 
   void showSearch() {

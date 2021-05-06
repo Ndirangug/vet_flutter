@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/all_vets/all_vets_header.dart';
 import 'package:vet_flutter/widgets/all_vets/vets_list.dart';
+import 'package:vet_flutter/widgets/veterinary/fetch_vets.dart';
 
-class AllVeterinarians extends StatelessWidget {
-  final Future<List<Veterinary>> vets;
+class AllVeterinarians extends StatefulWidget {
+  @override
+  _AllVeterinariansState createState() => _AllVeterinariansState();
+}
 
-  AllVeterinarians(this.vets);
+class _AllVeterinariansState extends State<AllVeterinarians> {
+  List<Veterinary> vets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class AllVeterinarians extends StatelessWidget {
 
     void triggerSearch(String query) {
       vetListKey.currentState!.filterVets(query);
-      print('search!!');
+      
     }
 
     return Scaffold(
@@ -30,5 +34,18 @@ class AllVeterinarians extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchVets(
+        vetRequest: VetRequest(),
+        onComplete: (vets) {
+          print("on complete all vets");
+          setState(() {
+            this.vets = vets;
+          });
+        });
   }
 }

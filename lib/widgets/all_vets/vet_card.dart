@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/screens/discover/discover.dart';
+import 'package:vet_flutter/widgets/location/location_services.dart';
 
-class VeterinaryCard extends StatelessWidget {
+class VeterinaryCard extends StatefulWidget {
   final Veterinary veterinary;
 
   VeterinaryCard(this.veterinary);
+
+  @override
+  _VeterinaryCardState createState() => _VeterinaryCardState();
+}
+
+class _VeterinaryCardState extends State<VeterinaryCard> {
+  String address = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +29,15 @@ class VeterinaryCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                veterinary.title +
+                widget.veterinary.title +
                     " " +
-                    veterinary.firstName +
+                    widget.veterinary.firstName +
                     " " +
-                    veterinary.lastName,
+                    widget.veterinary.lastName,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
               ),
               Text(
-                veterinary.summary,
+                widget.veterinary.summary,
                 style: TextStyle(fontStyle: FontStyle.italic),
               ),
               Row(
@@ -38,7 +46,7 @@ class VeterinaryCard extends StatelessWidget {
                       margin: EdgeInsets.only(right: 7, top: 20, bottom: 5),
                       child: Icon(Icons.phone, size: 15)),
                   Text(
-                    veterinary.phone,
+                    widget.veterinary.phone,
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ],
@@ -49,7 +57,7 @@ class VeterinaryCard extends StatelessWidget {
                       margin: EdgeInsets.only(right: 7, top: 5, bottom: 5),
                       child: Icon(Icons.email, size: 15)),
                   Text(
-                    veterinary.email,
+                    widget.veterinary.email,
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ],
@@ -62,7 +70,7 @@ class VeterinaryCard extends StatelessWidget {
                         margin: EdgeInsets.only(right: 7, top: 5, bottom: 5),
                         child: Icon(Icons.location_on, size: 15)),
                     Text(
-                      veterinary.address.address,
+                      this.address,
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ],
@@ -78,7 +86,7 @@ class VeterinaryCard extends StatelessWidget {
                           (states) => kColorAccent)),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Discover(this.veterinary)));
+                        builder: (context) => Discover(widget.veterinary)));
                   },
                 ),
               )
@@ -87,5 +95,16 @@ class VeterinaryCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getAddressFromCoordinates(widget.veterinary.address).then((placemark) {
+      setState(() {
+        this.address = " ${placemark.name} ${placemark.street}";
+      });
+    });
   }
 }

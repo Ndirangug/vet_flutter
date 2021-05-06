@@ -52,13 +52,13 @@ class VeterinaryDetails extends StatelessWidget {
   void addService(VetService service) {
     selectedServices.add(service);
     updateSheduledButton();
-    print(selectedServices);
+    //print(selectedServices);
   }
 
   void removeService(VetService service) {
     selectedServices.remove(service);
     updateSheduledButton();
-    print(selectedServices);
+    //print(selectedServices);
   }
 
   void updateSheduledButton() {

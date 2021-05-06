@@ -4,7 +4,7 @@ import 'package:vet_flutter/generated/service.pbgrpc.dart' as pb;
 
 Future<LocationData?> getCurrentLocation() async {
   Location location = new Location();
-  location.changeSettings(accuracy: LocationAccuracy.low);
+  location.changeSettings(accuracy: LocationAccuracy.high);
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
@@ -26,8 +26,8 @@ Future<LocationData?> getCurrentLocation() async {
   }
 
   print("awiating location");
-  //_locationData = await location.getLocation();
-  _locationData = LocationData.fromMap({"latitude": 0, 'longitude': 0});
+  _locationData = await location.getLocation();
+  //_locationData = LocationData.fromMap({"latitude": 0, 'longitude': 0});
   print("got location");
   return _locationData;
 }

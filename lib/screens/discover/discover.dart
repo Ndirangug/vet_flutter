@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vet_flutter/data/fetch_data.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/discover/discover_app_bar.dart';
 import 'package:vet_flutter/widgets/general/navigation_drawer/navigation_drawer.dart';
