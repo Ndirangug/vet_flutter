@@ -8,7 +8,7 @@ Container buildVetSearchHeader(
     Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: Svg('assets/images/elipse_green2.svg'),
+              image: AssetImage("assets/images/wide_ellipse_green3.png"),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
       child: SafeArea(

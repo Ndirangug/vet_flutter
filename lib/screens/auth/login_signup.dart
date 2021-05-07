@@ -37,7 +37,8 @@ class _LoginSignupState extends State<LoginSignup> {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 35),
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("assets/images/plain_backdrop.png"),
+                          image:
+                              AssetImage("assets/images/plain_backdrop2.png"),
                           fit: BoxFit.fitWidth,
                           alignment: Alignment.bottomCenter),
                     ),

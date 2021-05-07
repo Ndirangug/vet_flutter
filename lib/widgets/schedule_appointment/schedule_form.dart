@@ -157,10 +157,10 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
     ApiClient.scheduleSession(sessionRequest);
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => MakePaymentWebView(
-              phone: farmer.phone,
-              email: farmer.email,
-              amount: grandTotal,
-            )));
+            farmer: farmer,
+            amount: grandTotal,
+            time: timestamp,
+            vet: widget.vet)));
   }
 
   bool isWeekend(DateTime date) {

@@ -26,7 +26,7 @@ class _ViewProfileState extends State<ViewProfile> {
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: Svg('assets/images/elipse_green.svg'),
+                    image: AssetImage("assets/images/wide_ellipse_green3.png"),
                     fit: BoxFit.fitWidth,
                     alignment: Alignment.topCenter)),
           ),
@@ -44,8 +44,7 @@ class _ViewProfileState extends State<ViewProfile> {
             margin: EdgeInsets.only(top: 370),
             child: Column(
               children: [
-                buildProfileItem(
-                    '${farmer.firstName} ${farmer.lastName}'),
+                buildProfileItem('${farmer.firstName} ${farmer.lastName}'),
                 buildProfileItem(farmer.phone),
                 buildProfileItem(farmer.email),
                 buildProfileItem(address),
@@ -68,7 +67,6 @@ class _ViewProfileState extends State<ViewProfile> {
           address = "${placemark.name!} ${placemark.street}";
         });
       });
-
     });
   }
 

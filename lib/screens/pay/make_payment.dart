@@ -4,81 +4,114 @@ import 'dart:io';
 import 'package:random_string/random_string.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:retry/retry.dart';
+import 'package:vet_flutter/constants.dart';
+import 'package:vet_flutter/generated/service.pb.dart';
+import 'package:vet_flutter/google/protobuf/timestamp.pb.dart';
+import 'package:vet_flutter/screens/discover/discover.dart';
+import 'package:vet_flutter/widgets/schedule_appointment/send_email.dart';
+import 'package:webview_flutter/platform_interface.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MakePaymentWebView extends StatelessWidget {
-  final String phone;
-  final String email;
+  final Farmer farmer;
   final double amount;
+  final Timestamp time;
+  final Veterinary vet;
 
   MakePaymentWebView(
-      {required this.email, required this.phone, required this.amount});
+      {required this.farmer,
+      required this.time,
+      required this.amount,
+      required this.vet});
   late final WebViewController controller;
-
-  //final String sessionDetails;
-
-  // MakePaymentWebView({required this.sessionDetails});
 
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
 
-    return WebView(
-      initialUrl: 'https://payments.ipayafrica.com/v3/ke',
+    return SafeArea(
+        child: WebView(
+      initialUrl:
+          'https://ipay-payment-container-p2gh3d44pq-uc.a.run.app?email=${farmer.email}&phone=${farmer.phone}&amount=$amount',
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {
         controller = webViewController;
-        _loadHtmlFromAssets(controller);
+      },
+      onWebResourceError: (webResourceError) {
+        retry(() {
+          print(webResourceError.failingUrl);
+          controller.loadUrl(webResourceError.failingUrl!);
+        }, maxAttempts: 5);
+      },
+      onPageFinished: (url) {
+        controller.currentUrl().then((url) {
+          if (url!.contains("success.php")) {
+            _loadHtmlFromAssets("success");
+            _showSuccessDialog(context);
+            sendEmail(
+                time.toDateTime().toIso8601String(),
+                "${vet.firstName} ${vet.lastName}",
+                "${farmer.firstName}  ${farmer.lastName}",
+                farmer.email);
+          }
+        });
+      },
+    ));
+  }
+
+  Future<void> _showSuccessDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 3,
+          actions: [buildHomeButton(context)],
+          content: Container(
+            height: 100,
+            color: Colors.white,
+            padding: EdgeInsets.all(10),
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                    child: Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 40,
+                    ),
+                    margin: EdgeInsets.only(bottom: 5),
+                  ),
+                  Text(
+                    "Appointment booked successfully!",
+                    style: TextStyle(fontSize: 20),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
       },
     );
   }
 
-  String buildHtml() {
-    var url = "https://payments.ipayafrica.com/v3/ke";
-
-    String transactionId = randomAlphaNumeric(10);
-    Map requestParams = Map<String, dynamic>();
-
-    requestParams["live"] = 0;
-    requestParams["oid"] = transactionId;
-    requestParams["inv"] = transactionId;
-    requestParams["ttl"] = amount;
-    requestParams["tel"] = phone;
-    requestParams["eml"] = email;
-    requestParams["vid"] = "demo";
-    requestParams["curr"] = "KES";
-    requestParams["cbk"] = "http://callback.com";
-    requestParams["crl"] = 2;
-    //requestParams["p1"] = sessionDetails;
-
-    String datastring =
-        "${requestParams["live"]}${requestParams["oid"]}${requestParams["inv"]}${requestParams["ttl"]}${requestParams["tel"]}${requestParams["eml"]}${requestParams["vid"]}${requestParams["crl"]}";
-    String hashkey = "demoCHANGED";
-
-    Hmac hmacSha1 = Hmac(sha1, utf8.encode(hashkey)); // HMAC-SHA256
-    Digest digest = hmacSha1.convert(utf8.encode(datastring));
-    requestParams["hsh"] = "$digest";
-
-    String form = "";
-    requestParams.forEach((key, value) {
-      String input = "<input name='$key' type='text' value='$value'></br>";
-      form = "$form$input";
-    });
-    print(form);
-
-    String htmlPage =
-        "<html><form method='POST' action='$url'>$form<button type='submit'>Lipa</button></form></html>";
-    print("\n");
-    print(htmlPage);
-    return htmlPage;
-
-    // TODO SHOULD GET A HTTP RESPONSE STREAM
-  }
-
-  _loadHtmlFromAssets(WebViewController _controller) async {
-    _controller.loadUrl(Uri.dataFromString(buildHtml(),
+  _loadHtmlFromAssets(String data) async {
+    controller.loadUrl(Uri.dataFromString(data,
             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString());
+  }
+
+  buildHomeButton(BuildContext context) {
+    return TextButton(
+        onPressed: () => {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Discover(null)))
+            },
+        child: Text('BACK HOME', style: TextStyle(color: kColorPrimary)),
+        style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith(
+                (states) => Colors.blueGrey.shade100)));
   }
 }
