@@ -66,15 +66,18 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                itemCount: widget.selectedServices.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    ServicePreviewCard(
-                        widget.selectedServices[index], registerTotal, index)),
+            child: Container(
+              width: double.maxFinite,
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  itemCount: widget.selectedServices.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      ServicePreviewCard(widget.selectedServices[index],
+                          registerTotal, index)),
+            ),
           ),
-          Text('Total: Kshs $grandTotal')
+          Text('Total: Kshs ${grandTotal.toStringAsFixed(2)}')
         ],
       ),
     );
@@ -152,8 +155,12 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
         services: serviceRequests);
 
     ApiClient.scheduleSession(sessionRequest);
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => MakePaymentWebView()));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => MakePaymentWebView(
+              phone: farmer.phone,
+              email: farmer.email,
+              amount: grandTotal,
+            )));
   }
 
   bool isWeekend(DateTime date) {

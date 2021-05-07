@@ -9,11 +9,14 @@ class VeterinaryDetails extends StatelessWidget {
   final List<VetService> selectedServices = [];
   final GlobalKey<ScheduleAppointmentButtonState> scheduleButtonKey =
       GlobalKey<ScheduleAppointmentButtonState>();
+  late final BuildContext context;
 
   VeterinaryDetails(this.vet);
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       height: 400,
@@ -65,15 +68,23 @@ class VeterinaryDetails extends StatelessWidget {
     scheduleButtonKey.currentState!.updateEnabled(selectedServices.length > 0);
   }
 
-  Future<void> _showMyDialog(BuildContext context, Veterinary vet) async {
+  Future<void> _showMyDialog() async {
+    print("attempt show dialog");
     return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
+      context: this.context,
+      barrierDismissible: false,
+      useRootNavigator: false, // user must tap button!
       builder: (BuildContext context) {
         return ScheduleAppointmentDialog(
-          vet: vet,
+          vet: this.vet,
           selectedServices: selectedServices,
         );
+        // return Container(
+        //   color: Colors.white,
+        //   child: Center(
+        //     child: Text("Hi dialog"),
+        //   ),
+        // );
       },
     );
   }

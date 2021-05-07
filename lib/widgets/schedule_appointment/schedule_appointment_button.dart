@@ -3,7 +3,7 @@ import 'package:vet_flutter/constants.dart';
 import 'package:vet_flutter/generated/service.pb.dart';
 
 class ScheduleAppointmentButton extends StatefulWidget {
-  final Future<void> Function(BuildContext context, Veterinary) showDialog;
+  final Future<void> Function() showDialog;
   final Veterinary vet;
 
   ScheduleAppointmentButton(this.showDialog,
@@ -21,8 +21,7 @@ class ScheduleAppointmentButtonState extends State<ScheduleAppointmentButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () =>
-          {enabled ? widget.showDialog(context, widget.vet) : null},
+      onPressed: () => {enabled ? widget.showDialog() : null},
       child: Text('SCHEDULE APPOINTMENT'),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith(

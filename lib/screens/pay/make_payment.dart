@@ -8,6 +8,12 @@ import 'package:crypto/crypto.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MakePaymentWebView extends StatelessWidget {
+  final String phone;
+  final String email;
+  final double amount;
+
+  MakePaymentWebView(
+      {required this.email, required this.phone, required this.amount});
   late final WebViewController controller;
 
   //final String sessionDetails;
@@ -37,10 +43,12 @@ class MakePaymentWebView extends StatelessWidget {
     requestParams["live"] = 0;
     requestParams["oid"] = transactionId;
     requestParams["inv"] = transactionId;
-    requestParams["ttl"] = 0;
-    requestParams["tel"] = "";
-    requestParams["eml"] = "";
+    requestParams["ttl"] = amount;
+    requestParams["tel"] = phone;
+    requestParams["eml"] = email;
     requestParams["vid"] = "demo";
+    requestParams["curr"] = "KES";
+    requestParams["cbk"] = "http://callback.com";
     requestParams["crl"] = 2;
     //requestParams["p1"] = sessionDetails;
 

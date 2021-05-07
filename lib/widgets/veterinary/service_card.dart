@@ -45,7 +45,7 @@ class ServiceCard extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: Text(
-                  'Kshs  ${service.costPerUnit} per  ${service.unit}',
+                  'Kshs  ${service.costPerUnit.toStringAsFixed(2)} per  ${service.unit}',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
               )

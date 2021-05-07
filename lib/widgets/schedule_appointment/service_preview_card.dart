@@ -50,7 +50,7 @@ class _ServicePreviewCardState extends State<ServicePreviewCard> {
             ],
           )),
           Text(
-            'Kshs ${total.toInt()}',
+            'Kshs ${total.toStringAsFixed(2)}',
             style: TextStyle(fontWeight: FontWeight.w600),
           )
         ],

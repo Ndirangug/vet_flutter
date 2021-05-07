@@ -22,6 +22,7 @@ class _ScheduleAppointmentDialogState extends State<ScheduleAppointmentDialog> {
 
   @override
   Widget build(BuildContext context) {
+    print("in schedule ppointment dialog build");
     return AlertDialog(
       elevation: 3,
       actions: buildActions(context),
