@@ -32,7 +32,7 @@ class _ViewProfileState extends State<ViewProfile> {
           ),
           SafeArea(child: buildTitleRow(context)),
           Container(
-            margin: EdgeInsets.only(top: 200),
+            margin: EdgeInsets.only(top: 250),
             child: CircleAvatar(
               backgroundColor: Colors.grey.shade200,
               radius: 75,
@@ -41,7 +41,7 @@ class _ViewProfileState extends State<ViewProfile> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 370),
+            margin: EdgeInsets.only(top: 450),
             child: Column(
               children: [
                 buildProfileItem('${farmer.firstName} ${farmer.lastName}'),
@@ -60,13 +60,32 @@ class _ViewProfileState extends State<ViewProfile> {
   void initState() {
     super.initState();
 
+    // getCachedUser().then((cachedFarmer) {
+    //   getAddressFromCoordinates(cachedFarmer.address).then((placemark) {
+    //     setState(() {
+    //       farmer = cachedFarmer;
+    //       address = "${placemark.name!} ${placemark.street}";
+    //     });
+    //     print("profile farmer");
+    //     print(farmer);
+    //   }).onError((error, stackTrace) => null);
+    // });
+
     getCachedUser().then((cachedFarmer) {
-      getAddressFromCoordinates(cachedFarmer.address).then((placemark) {
-        setState(() {
-          farmer = cachedFarmer;
-          address = "${placemark.name!} ${placemark.street}";
-        });
+      setState(() {
+        farmer = cachedFarmer;
+        print(farmer);
       });
+    }).catchError((error) {
+      print(error);
+    });
+
+    getAddressFromCoordinates(farmer.address).then((placemark) {
+      setState(() {
+        address = address = "${placemark.name!} ${placemark.street}";
+      });
+    }).catchError((error) {
+      print(error);
     });
   }
 
