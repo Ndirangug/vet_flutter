@@ -19,22 +19,31 @@ class MakePaymentWebView extends StatelessWidget {
   final double amount;
   final Timestamp time;
   final Veterinary vet;
+  final List<Map<String, dynamic>> serviceRequests;
 
   MakePaymentWebView(
       {required this.farmer,
       required this.time,
       required this.amount,
-      required this.vet});
+      required this.vet,
+      required this.serviceRequests});
   late final WebViewController controller;
 
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
 
+    String url =
+        'https://ipay-payment-container-p2gh3d44pq-uc.a.run.app?email=${farmer.email}&phone=${farmer.phone}&amount=$amount&client=vets&customer=${farmer.firstName} ${farmer.lastName},${farmer.phone}&items=';
+
+    for (var serviceRequest in serviceRequests) {
+      url +=
+          '${serviceRequest["service"]},,${serviceRequest["units"]},${serviceRequest["unitCost"]},${serviceRequest["units"] * serviceRequest["unitCost"]}';
+      url += ';';
+    }
     return SafeArea(
         child: WebView(
-      initialUrl:
-          'https://ipay-payment-container-p2gh3d44pq-uc.a.run.app?email=${farmer.email}&phone=${farmer.phone}&amount=$amount',
+      initialUrl: url,
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {
         controller = webViewController;
@@ -48,8 +57,17 @@ class MakePaymentWebView extends StatelessWidget {
       onPageFinished: (url) {
         controller.currentUrl().then((url) {
           if (url!.contains("success.php")) {
-            _loadHtmlFromAssets("success");
-            _showSuccessDialog(context);
+            //_loadHtmlFromAssets("success");
+            //_showSuccessDialog(context);
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Appointment Booked Successfully'),
+                duration: Duration(seconds: -1),
+                action: SnackBarAction(
+                    label: "HOME",
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Discover(null)));
+                    })));
             sendEmail(
                 time.toDateTime().toIso8601String(),
                 "${vet.firstName} ${vet.lastName}",

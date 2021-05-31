@@ -26,6 +26,7 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
   double grandTotal = 0;
   late List<double> totals = [];
   late List<VetServiceRequest> serviceRequests = [];
+  late List<Map<String, dynamic>> selectedServicesMapList = [];
 
   late Farmer farmer;
   late Location location;
@@ -123,6 +124,7 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
       calculateGrandTotal();
       serviceRequests
           .add(VetServiceRequest(serviceId: service.serviceId, units: 1));
+      selectedServicesMapList.add({"service": service.title, "units": 1, "unitCost": service.costPerUnit});
     });
 
     getCachedUser().then((fetchedUser) {
@@ -139,6 +141,7 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
       this.totals[index] = total;
       calculateGrandTotal();
       serviceRequests[index].units = units;
+      selectedServicesMapList[index]["units"] = units;
     });
   }
 
@@ -157,10 +160,12 @@ class ScheduleAppointmentFormState extends State<ScheduleAppointmentForm> {
     ApiClient.scheduleSession(sessionRequest);
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => MakePaymentWebView(
-            farmer: farmer,
-            amount: grandTotal,
-            time: timestamp,
-            vet: widget.vet)));
+              farmer: farmer,
+              amount: grandTotal,
+              time: timestamp,
+              vet: widget.vet,
+              serviceRequests: this.selectedServicesMapList,
+            )));
   }
 
   bool isWeekend(DateTime date) {
