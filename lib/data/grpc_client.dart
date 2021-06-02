@@ -14,9 +14,9 @@ class GrpcClientSingleton {
 
   GrpcClientSingleton._internal() {
     //Map<String, String> envVars = Platform.environment;
-   
+
     this.clientChannel = ClientChannel(
-        "vet-backend-fybfguvuua-uc.a.run.app", // Your IP here, localhost might not work.
+        "vet-backend-u6wijjyqaa-uc.a.run.app", // Your IP here, localhost might not work.
         port: 443,
         // envVars['GRPC_HOST']!,
         // port: int.parse(envVars['GRPC_PORT']!),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vet_flutter/generated/service.pbgrpc.dart';
 import 'package:vet_flutter/widgets/all_vets/all_vets_header.dart';
 import 'package:vet_flutter/widgets/all_vets/vets_list.dart';
+import 'package:vet_flutter/widgets/general/progress_dialog.dart';
 import 'package:vet_flutter/widgets/veterinary/fetch_vets.dart';
 
 class AllVeterinarians extends StatefulWidget {
@@ -19,7 +20,6 @@ class _AllVeterinariansState extends State<AllVeterinarians> {
 
     void triggerSearch(String query) {
       vetListKey.currentState!.filterVets(query);
-      
     }
 
     return Scaffold(
@@ -39,9 +39,11 @@ class _AllVeterinariansState extends State<AllVeterinarians> {
   @override
   void initState() {
     super.initState();
+    //showProgressDialog(context);
     fetchVets(
         vetRequest: VetRequest(),
         onComplete: (vets) {
+          //Navigator.of(context).pop();
           print("on complete all vets");
           setState(() {
             this.vets = vets;
