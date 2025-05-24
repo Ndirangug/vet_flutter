@@ -27,7 +27,7 @@ jobs:
       # - name: Run Tests
       #   run: flutter test
       - name: Build Android App
-        run: flutter build apk --release --split-per-abi --no-sound-null-safety --obfuscate --split-debug-info=build/debug-symbols
+        run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=build/debug-symbols
       # - name: Build iOS App
       #   run: |
       #     flutter build ios --release --no-codesign --no-sound-null-safety --obfuscate --split-debug-info=build/debug-symbols
